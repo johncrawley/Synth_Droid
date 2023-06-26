@@ -38,6 +38,8 @@ public:
 
     void setToneOn(bool isToneOn);
 
+    void setFrequency(int freq);
+
 private:
     Oscillator oscillator_;
     AAudioStream *stream_;

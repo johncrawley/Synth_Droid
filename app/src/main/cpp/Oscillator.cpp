@@ -26,30 +26,60 @@
 #include <cmath>
 
 #define TWO_PI (3.14159 * 2)
-#define AMPLITUDE 0.3
-#define FREQUENCY 440.0
+#define DEFAULT_AMPLITUDE 0.3
+#define FREQUENCY 240.0
 
 void Oscillator::setSampleRate(int32_t sampleRate) {
-    phaseIncrement_ = (TWO_PI * FREQUENCY) / (double) sampleRate;
+    phaseIncrement_ = (TWO_PI * frequency) / (double) sampleRate;
+    saved_sample_rate = sampleRate;
 }
+
+void setSampleRate2(){
+}
+
+
 
 void Oscillator::setWaveOn(bool isWaveOn) {
     isWaveOn_.store(isWaveOn);
 }
+
+void Oscillator::reduceVolume(){
+    if(amplitude > amplitude_lower_limit){
+        amplitude -= 0.001;
+    }
+}
+
+
+void  Oscillator::setFrequency(float freq){
+    frequency = freq;
+    phaseIncrement_ = (TWO_PI * frequency) / (double) saved_sample_rate;
+}
+
+
+void Oscillator::resetVolume(){
+    amplitude = DEFAULT_AMPLITUDE;
+}
+
+
 
 void Oscillator::render(float *audioData, int32_t numFrames) {
 
     // If the wave has been switched off then reset the phase to zero. Starting at a non-zero value
     // could result in an unwanted audible 'click'
     if (!isWaveOn_.load()) phase_ = 0;
+    float extra = 0;
+    float limit = 0;
 
     for (int i = 0; i < numFrames; i++) {
 
         if (isWaveOn_.load()) {
 
             // Calculates the next sample value for the sine wave.
-            audioData[i] = (float) (sin(phase_) * AMPLITUDE);
-
+            audioData[i] = (float) ((sin(phase_) * amplitude)) + extra;
+            extra++;
+            if(extra > limit){
+                extra = 0;
+            }
             // Increments the phase, handling wrap around.
             phase_ += phaseIncrement_;
             if (phase_ > TWO_PI) phase_ -= TWO_PI;

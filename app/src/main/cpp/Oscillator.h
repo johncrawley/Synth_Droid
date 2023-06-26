@@ -36,11 +36,21 @@ public:
 
     void render(float *audioData, int32_t numFrames);
 
+    void reduceVolume();
+
+    void resetVolume();
+
+    void setFrequency(float freq);
+
 private:
     // We use an atomic bool to define isWaveOn_ because it is accessed from multiple threads.
     std::atomic<bool> isWaveOn_{false};
     double phase_ = 0.0;
     double phaseIncrement_ = 0.0;
+    float amplitude = 0.3;
+    float amplitude_lower_limit = 0.002;
+    float frequency = 240;
+    int32_t saved_sample_rate = 100;
 };
 
 

@@ -47,9 +47,18 @@ JNIEXPORT void JNICALL
 
 JNIEXPORT void JNICALL
 *Java_com_jcrawley_synthdroid_MainActivity_startEngine(JNIEnv *env, jobject /* this */) {
-audioEngine->start();
+    audioEngine->start();
     return 0;
 }
+
+
+
+JNIEXPORT void JNICALL
+*Java_com_jcrawley_synthdroid_MainActivity_setFrequency(JNIEnv *env, jobject, jint freq) {
+    audioEngine->setFrequency(freq);
+    return 0;
+}
+
 
 JNIEXPORT void JNICALL
 *Java_com_jcrawley_synthdroid_MainActivity_stopEngine(JNIEnv *env, jobject /* this */) {

@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity {
 
     private native void touchEvent(int action);
 
+
+    private native void setFrequency(int freq);
+
     private native void startEngine();
 
     private native void stopEngine();
@@ -29,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_MOVE){
+            int y = (int)event.getY();
+            int extraHz = 240 + (2000 - y);
+            setFrequency(extraHz);
+
+        }
        touchEvent(event.getAction());
         return super.onTouchEvent(event);
     }

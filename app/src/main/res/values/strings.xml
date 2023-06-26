@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Synth Droid</string>
+    <string name="main_message">Play your tunes!</string>
 </resources>

@@ -50,6 +50,12 @@ void errorCallback(AAudioStream *stream,
     }
 }
 
+
+void AudioEngine::setFrequency(int freq){
+    oscillator_.setFrequency(freq);
+}
+
+
 bool AudioEngine::start() {
     AAudioStreamBuilder *streamBuilder;
     AAudio_createStreamBuilder(&streamBuilder);

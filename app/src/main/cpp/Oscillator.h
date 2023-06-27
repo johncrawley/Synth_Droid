@@ -42,15 +42,60 @@ public:
 
     void setFrequency(float freq);
 
+    void enableTremolo(bool isEnabled);
+
 private:
     // We use an atomic bool to define isWaveOn_ because it is accessed from multiple threads.
     std::atomic<bool> isWaveOn_{false};
     double phase_ = 0.0;
     double phaseIncrement_ = 0.0;
     float amplitude = 0.3;
-    float amplitude_lower_limit = 0.002;
+    float amplitudeUpperLimit = 0.3;
+    float amplitudeLowerLimit = 0.002;
     float frequency = 240;
-    int32_t saved_sample_rate = 100;
+    int32_t savedSampleRate = 100;
+    bool isTremoloEnabled = false;
+    bool isTremoloAmplitudeDecreasing = true;
+    float tremoloStep = 0.001f;
+
+
+    void reduceAmplitude(double reductionRate){
+        if(amplitude > amplitudeLowerLimit){
+            amplitude -= reductionRate;
+        }
+    }
+
+
+    void increaseAmplitude(double incValue){
+        if(amplitude < amplitudeUpperLimit){
+            amplitude += incValue;
+        }
+    }
+
+
+    void switchTremoloDirection(){
+        isTremoloAmplitudeDecreasing = !isTremoloAmplitudeDecreasing;
+    }
+
+
+    void adjustAmplitude(){
+        if(!isTremoloEnabled) {
+            return;
+        }
+        if(isTremoloAmplitudeDecreasing){
+            reduceAmplitude(tremoloStep);
+            if(amplitude <= amplitudeLowerLimit){
+                switchTremoloDirection();
+            }
+            return;
+        }
+        increaseAmplitude(tremoloStep);
+        if(amplitude >= amplitudeUpperLimit){
+            switchTremoloDirection();
+        }
+    }
+
+
 };
 
 

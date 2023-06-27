@@ -31,28 +31,28 @@
 
 void Oscillator::setSampleRate(int32_t sampleRate) {
     phaseIncrement_ = (TWO_PI * frequency) / (double) sampleRate;
-    saved_sample_rate = sampleRate;
+    savedSampleRate = sampleRate;
 }
-
-void setSampleRate2(){
-}
-
 
 
 void Oscillator::setWaveOn(bool isWaveOn) {
     isWaveOn_.store(isWaveOn);
 }
 
+
+void Oscillator::enableTremolo(bool enabled){
+   isTremoloEnabled = enabled;
+}
+
+
 void Oscillator::reduceVolume(){
-    if(amplitude > amplitude_lower_limit){
-        amplitude -= 0.001;
-    }
+    reduceAmplitude(0.01f);
 }
 
 
 void  Oscillator::setFrequency(float freq){
     frequency = freq;
-    phaseIncrement_ = (TWO_PI * frequency) / (double) saved_sample_rate;
+    phaseIncrement_ = (TWO_PI * frequency) / (double) savedSampleRate;
 }
 
 
@@ -69,6 +69,7 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
     if (!isWaveOn_.load()) phase_ = 0;
     float extra = 0;
     float limit = 0;
+    adjustAmplitude();
 
     for (int i = 0; i < numFrames; i++) {
 

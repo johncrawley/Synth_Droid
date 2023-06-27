@@ -55,6 +55,10 @@ void AudioEngine::setFrequency(int freq){
     oscillator_.setFrequency(freq);
 }
 
+void AudioEngine::enableTremolo(bool isEnabled){
+    oscillator_.enableTremolo(isEnabled);
+}
+
 
 bool AudioEngine::start() {
     AAudioStreamBuilder *streamBuilder;

@@ -22,12 +22,17 @@ public class MainActivity extends AppCompatActivity {
     private native void stopEngine();
 
 
+    private native void enableTremolo(boolean isEnabled);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startEngine();
+        enableTremolo(true);
+
     }
 
     @Override

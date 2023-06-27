@@ -54,6 +54,14 @@ JNIEXPORT void JNICALL
 
 
 JNIEXPORT void JNICALL
+*Java_com_jcrawley_synthdroid_MainActivity_enableTremolo(JNIEnv *env, jobject /* this */, jboolean isEnabled) {
+    audioEngine->enableTremolo(isEnabled);
+    return 0;
+}
+
+
+
+JNIEXPORT void JNICALL
 *Java_com_jcrawley_synthdroid_MainActivity_setFrequency(JNIEnv *env, jobject, jint freq) {
     audioEngine->setFrequency(freq);
     return 0;

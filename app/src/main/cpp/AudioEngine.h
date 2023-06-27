@@ -40,6 +40,8 @@ public:
 
     void setFrequency(int freq);
 
+    void enableTremolo(bool isEnabled);
+
 private:
     Oscillator oscillator_;
     AAudioStream *stream_;

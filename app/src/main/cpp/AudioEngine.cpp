@@ -55,8 +55,14 @@ void AudioEngine::setFrequency(int freq){
     oscillator_.setFrequency(freq);
 }
 
+
 void AudioEngine::enableTremolo(bool isEnabled){
     oscillator_.enableTremolo(isEnabled);
+}
+
+
+void AudioEngine::setTremoloRate(int rate){
+    oscillator_.setTremoloRate(rate);
 }
 
 

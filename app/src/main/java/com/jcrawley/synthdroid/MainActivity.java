@@ -1,9 +1,14 @@
 package com.jcrawley.synthdroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Consumer;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.widget.SeekBar;
+
+import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,13 +30,16 @@ public class MainActivity extends AppCompatActivity {
     private native void enableTremolo(boolean isEnabled);
 
 
+    private native void setTremoloRate(int rate);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startEngine();
-        enableTremolo(true);
+        setupViews();
 
     }
 
@@ -52,4 +60,28 @@ public class MainActivity extends AppCompatActivity {
        stopEngine();
         super.onDestroy();
     }
+
+    private void setupViews(){
+        SwitchMaterial enableTremoloSwitch = findViewById(R.id.enableTremoloSwitch);
+        enableTremoloSwitch.setOnCheckedChangeListener((view, isChecked) ->{
+            enableTremolo(isChecked);
+        });
+        setupTremoloRateSeekBar();
+    }
+
+
+    private void setupTremoloRateSeekBar(){
+
+        SeekBar seekBar = findViewById(R.id.tremoloRateSeekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                setTremoloRate(i);
+            }
+
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+    }
 }
+

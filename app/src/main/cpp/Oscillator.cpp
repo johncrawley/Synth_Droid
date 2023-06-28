@@ -41,7 +41,12 @@ void Oscillator::setWaveOn(bool isWaveOn) {
 
 
 void Oscillator::enableTremolo(bool enabled){
-   isTremoloEnabled = enabled;
+    isTremoloEnabled = enabled;
+}
+
+
+void Oscillator::setTremoloRate(int rate){
+    tremoloStep = 0.01f + ((float)rate / 1000);
 }
 
 

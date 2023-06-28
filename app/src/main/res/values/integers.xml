@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="tremolo_rate_seekbar_max">100</integer>
+    <integer name="tremolo_rate_seekbar_default">50</integer>
+</resources>

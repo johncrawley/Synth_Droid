@@ -44,6 +44,9 @@ public:
 
     void enableTremolo(bool isEnabled);
 
+    void setTremoloRate(int rate);
+
+
 private:
     // We use an atomic bool to define isWaveOn_ because it is accessed from multiple threads.
     std::atomic<bool> isWaveOn_{false};

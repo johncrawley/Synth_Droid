@@ -59,6 +59,12 @@ JNIEXPORT void JNICALL
     return 0;
 }
 
+JNIEXPORT void JNICALL
+*Java_com_jcrawley_synthdroid_MainActivity_setTremoloRate(JNIEnv *env, jobject /* this */, int rate) {
+audioEngine->setTremoloRate(rate);
+return 0;
+}
+
 
 
 JNIEXPORT void JNICALL

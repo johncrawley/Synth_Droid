@@ -44,6 +44,8 @@ public:
 
     void setTremoloRate(int rate);
 
+    void updateTremoloAmplitude();
+
 private:
     Oscillator oscillator_;
     AAudioStream *stream_;

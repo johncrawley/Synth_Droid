@@ -46,12 +46,12 @@ void Oscillator::enableTremolo(bool enabled){
 
 
 void Oscillator::setTremoloRate(int rate){
-    tremoloStep = 0.01f + ((float)rate / 1000);
+    tremoloStep = 0.005f + ((float)rate / 7000);
 }
 
 
-void Oscillator::reduceVolume(){
-    reduceAmplitude(0.01f);
+void Oscillator::updateTremoloAmplitude(){
+    adjustAmplitude();
 }
 
 
@@ -61,12 +61,6 @@ void  Oscillator::setFrequency(float freq){
 }
 
 
-void Oscillator::resetVolume(){
-    amplitude = DEFAULT_AMPLITUDE;
-}
-
-
-
 void Oscillator::render(float *audioData, int32_t numFrames) {
 
     // If the wave has been switched off then reset the phase to zero. Starting at a non-zero value
@@ -74,7 +68,6 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
     if (!isWaveOn_.load()) phase_ = 0;
     float extra = 0;
     float limit = 0;
-    adjustAmplitude();
 
     for (int i = 0; i < numFrames; i++) {
 
@@ -88,7 +81,10 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
             }
             // Increments the phase, handling wrap around.
             phase_ += phaseIncrement_;
-            if (phase_ > TWO_PI) phase_ -= TWO_PI;
+            if (phase_ > TWO_PI){
+                phase_ -= TWO_PI;
+               // adjustAmplitude();  //calling this here will cause tremolo rate to increase with frequency
+            }
 
         } else {
             // Outputs silence by setting sample value to zero.

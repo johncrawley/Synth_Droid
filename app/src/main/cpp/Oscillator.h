@@ -36,15 +36,13 @@ public:
 
     void render(float *audioData, int32_t numFrames);
 
-    void reduceVolume();
-
-    void resetVolume();
-
     void setFrequency(float freq);
 
     void enableTremolo(bool isEnabled);
 
     void setTremoloRate(int rate);
+
+    void updateTremoloAmplitude();
 
 
 private:
@@ -59,7 +57,7 @@ private:
     int32_t savedSampleRate = 100;
     bool isTremoloEnabled = false;
     bool isTremoloAmplitudeDecreasing = true;
-    float tremoloStep = 0.001f;
+    float tremoloStep = 0.01f;
 
 
     void reduceAmplitude(double reductionRate){

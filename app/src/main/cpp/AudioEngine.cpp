@@ -66,6 +66,11 @@ void AudioEngine::setTremoloRate(int rate){
 }
 
 
+void AudioEngine::updateTremoloAmplitude(){
+    oscillator_.updateTremoloAmplitude();
+}
+
+
 bool AudioEngine::start() {
     AAudioStreamBuilder *streamBuilder;
     AAudio_createStreamBuilder(&streamBuilder);

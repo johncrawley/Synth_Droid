@@ -45,7 +45,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".4"
             android:gravity="center_vertical"
-            android:text="@string/tremolo_depth_seekbar_label"
+            android:text="@string/tremolo_rate_seekbar_label"
             />
 
         <SeekBar

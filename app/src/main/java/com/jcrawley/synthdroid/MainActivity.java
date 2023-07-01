@@ -1,24 +1,26 @@
 package com.jcrawley.synthdroid;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Consumer;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.SeekBar;
 
-import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     private final ScheduledExecutorService tremoloExecutorService = Executors.newSingleThreadScheduledExecutor();
+    private int tremoloRateCounter = 100;
+    private int initialTremoloRateCounter = 100;
+    private ScheduledFuture<?> tremoloFuture;
+    private boolean isTremoloEnabled;
+
 
     static {
         System.loadLibrary("native-lib");
@@ -56,17 +58,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
         if(action == MotionEvent.ACTION_DOWN){
-            enableTrem();
+            startTremolo();
         }
         else if(action == MotionEvent.ACTION_MOVE){
-            enableTrem();
+            startTremolo();
             int y = (int)event.getY();
             int extraHz = 240 + (2000 - y);
             setFrequency(extraHz);
 
         }
         else if(action == MotionEvent.ACTION_UP){
-            disableTrem();
+            stopTremolo();
         }
        touchEvent(event.getAction());
         return super.onTouchEvent(event);
@@ -103,11 +105,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private int tremoloRateCounter = 100;
-    private int initialTremoloRateCounter = 100;
-    private ScheduledFuture<?> tremoloFuture;
-    private boolean isTremoloEnabled;
-
 
     private void setTremoloCounter(int value){
         final int tremoloMaxRate = 101;
@@ -115,29 +112,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void enableTrem(){
+    private void startTremolo(){
         if(isTremoloEnabled){
             tremoloFuture = tremoloExecutorService.scheduleAtFixedRate(this::adjustTremoloValue, 1, 10, TimeUnit.MILLISECONDS);
         }
     }
 
 
-    private void disableTrem(){
+    private void stopTremolo(){
         System.out.println("Entered disableTrem!");
-        if(!tremoloFuture.isCancelled()) {
-            tremoloFuture.cancel(false);
+        if(tremoloFuture == null || tremoloFuture.isCancelled()) {
+            return;
         }
-        tremoloFuture.cancel(false);
+        tremoloFuture.cancel(true);
     }
 
 
     private void adjustTremoloValue(){
         tremoloRateCounter--;
         if(tremoloRateCounter <= 0){
-            updateTremoloAmplitude();
-            System.out.println("updated tremolo amplitude!");
             tremoloRateCounter = initialTremoloRateCounter;
+           // updateTremoloAmplitude();
+            System.out.println("updated tremolo amplitude! initialTremRate: " + initialTremoloRateCounter + " currentCount: " + tremoloRateCounter + " isfuture cancelled? : " + tremoloFuture.isCancelled());
         }
+    }
+
+    private void adjustTemp(){
+        System.out.println("adjustTemp() is future cancelled ? " + tremoloFuture.isCancelled());
     }
 }
 

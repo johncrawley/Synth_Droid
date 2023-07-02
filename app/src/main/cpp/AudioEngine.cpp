@@ -51,23 +51,13 @@ void errorCallback(AAudioStream *stream,
 }
 
 
-void AudioEngine::setFrequency(int freq){
+void AudioEngine::setFrequency(float freq){
     oscillator_.setFrequency(freq);
 }
 
 
-void AudioEngine::enableTremolo(bool isEnabled){
-    oscillator_.enableTremolo(isEnabled);
-}
-
-
-void AudioEngine::setTremoloRate(int rate){
-    oscillator_.setTremoloRate(rate);
-}
-
-
-void AudioEngine::updateTremoloAmplitude(){
-    oscillator_.updateTremoloAmplitude();
+void AudioEngine::setAmplitude(float amplitude){
+    oscillator_.setAmplitude(amplitude);
 }
 
 
@@ -90,6 +80,7 @@ bool AudioEngine::start() {
 
     // Retrieves the sample rate of the stream for our oscillator.
     int32_t sampleRate = AAudioStream_getSampleRate(stream_);
+    oscillator_.setDefaultAmplitude();
     oscillator_.setSampleRate(sampleRate);
 
     // Sets the buffer size.

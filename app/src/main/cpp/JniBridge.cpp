@@ -53,29 +53,15 @@ JNIEXPORT void JNICALL
 
 
 JNIEXPORT void JNICALL
-*Java_com_jcrawley_synthdroid_MainActivity_enableTremolo(JNIEnv *env, jobject /* this */, jboolean isEnabled) {
-    audioEngine->enableTremolo(isEnabled);
-    return 0;
-}
-
-
-JNIEXPORT void JNICALL
-*Java_com_jcrawley_synthdroid_MainActivity_setTremoloRate(JNIEnv *env, jobject /* this */, int rate) {
-    audioEngine->setTremoloRate(rate);
-    return 0;
-}
-
-
-JNIEXPORT void JNICALL
-*Java_com_jcrawley_synthdroid_MainActivity_updateTremoloAmplitude(JNIEnv *env, jobject /* this */) {
-    audioEngine->updateTremoloAmplitude();
-    return 0;
-}
-
-
-JNIEXPORT void JNICALL
-*Java_com_jcrawley_synthdroid_MainActivity_setFrequency(JNIEnv *env, jobject, jint freq) {
+*Java_com_jcrawley_synthdroid_MainActivity_setFrequency(JNIEnv *env, jobject, jfloat freq) {
     audioEngine->setFrequency(freq);
+    return nullptr;
+}
+
+
+JNIEXPORT void JNICALL
+*Java_com_jcrawley_synthdroid_MainActivity_setAmplitude(JNIEnv *env, jobject, jfloat amplitude) {
+    audioEngine->setAmplitude(amplitude);
     return 0;
 }
 

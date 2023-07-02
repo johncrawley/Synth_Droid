@@ -40,18 +40,14 @@ void Oscillator::setWaveOn(bool isWaveOn) {
 }
 
 
-void Oscillator::enableTremolo(bool enabled){
-    isTremoloEnabled = enabled;
+void Oscillator::setAmplitude(float value){
+    isAmplitudeChangeDue_ = true;
+    adjustedAmplitude_ = value;
 }
 
 
-void Oscillator::setTremoloRate(int rate){
-    tremoloStep = 0.005f + ((float)rate / 7000);
-}
-
-
-void Oscillator::updateTremoloAmplitude(){
-    adjustAmplitude();
+void Oscillator::setDefaultAmplitude(){
+    amplitude = 0.3;
 }
 
 
@@ -81,9 +77,11 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
             }
             // Increments the phase, handling wrap around.
             phase_ += phaseIncrement_;
+
+
             if (phase_ > TWO_PI){
                 phase_ -= TWO_PI;
-               // adjustAmplitude();  //calling this here will cause tremolo rate to increase with frequency
+                adjustAmplitude();
             }
 
         } else {

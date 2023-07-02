@@ -38,11 +38,10 @@ public:
 
     void setFrequency(float freq);
 
-    void enableTremolo(bool isEnabled);
+    void setAmplitude(float value);
 
-    void setTremoloRate(int rate);
+    void setDefaultAmplitude();
 
-    void updateTremoloAmplitude();
 
 
 private:
@@ -51,51 +50,19 @@ private:
     double phase_ = 0.0;
     double phaseIncrement_ = 0.0;
     float amplitude = 0.3;
-    float amplitudeUpperLimit = 0.3;
-    float amplitudeLowerLimit = 0.002;
     float frequency = 240;
     int32_t savedSampleRate = 100;
-    bool isTremoloEnabled = false;
-    bool isTremoloAmplitudeDecreasing = true;
-    float tremoloStep = 0.01f;
-
-
-    void reduceAmplitude(double reductionRate){
-        if(amplitude > amplitudeLowerLimit){
-            amplitude -= reductionRate;
-        }
-    }
-
-
-    void increaseAmplitude(double incValue){
-        if(amplitude < amplitudeUpperLimit){
-            amplitude += incValue;
-        }
-    }
-
-
-    void switchTremoloDirection(){
-        isTremoloAmplitudeDecreasing = !isTremoloAmplitudeDecreasing;
-    }
+    bool isAmplitudeChangeDue_ = false;
+    float adjustedAmplitude_ = 0.0;
 
 
     void adjustAmplitude(){
-        if(!isTremoloEnabled) {
+        if(!isAmplitudeChangeDue_){
             return;
         }
-        if(isTremoloAmplitudeDecreasing){
-            reduceAmplitude(tremoloStep);
-            if(amplitude <= amplitudeLowerLimit){
-                switchTremoloDirection();
-            }
-            return;
-        }
-        increaseAmplitude(tremoloStep);
-        if(amplitude >= amplitudeUpperLimit){
-            switchTremoloDirection();
-        }
+        isAmplitudeChangeDue_ = false;
+        amplitude = adjustedAmplitude_;
     }
-
 
 };
 

@@ -38,13 +38,9 @@ public:
 
     void setToneOn(bool isToneOn);
 
-    void setFrequency(int freq);
+    void setFrequency(float freq);
 
-    void enableTremolo(bool isEnabled);
-
-    void setTremoloRate(int rate);
-
-    void updateTremoloAmplitude();
+    void setAmplitude(float amplitude);
 
 private:
     Oscillator oscillator_;

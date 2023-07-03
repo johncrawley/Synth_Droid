@@ -6,58 +6,74 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/someMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_message"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/enableTremoloSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:checked="false"
-        android:gravity="center_vertical"
-        android:text="@string/enable_tremolo_switch_label"
-        app:layout_constraintEnd_toEndOf="parent"
+    <View
+        android:id="@+id/inputView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:minHeight="100dp"
+        android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/someMessage"
-        app:layout_constraintBottom_toTopOf="@+id/tremoloRateSeekBarLayout" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/controlsLayout"
+        />
 
 
     <LinearLayout
-        android:id="@+id/tremoloRateSeekBarLayout"
+        android:id="@+id/controlsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="12dp"
+        android:background="@color/control_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <TextView
-            android:id="@+id/tremoloRateSeekBarLabel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".4"
-            android:gravity="center_vertical"
-            android:text="@string/tremolo_rate_seekbar_label"
-            />
-
-        <SeekBar
-            android:id="@+id/tremoloRateSeekBar"
-            android:layout_width="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/inputView"
+        >
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/enableTremoloSwitch"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".6"
-            android:indeterminate="false"
-            android:gravity="fill_horizontal"
-            android:max="@integer/tremolo_rate_seekbar_max"
-            android:paddingBottom="8dp"
-            android:progress="@integer/tremolo_rate_seekbar_default" />
+            android:checked="false"
+            android:gravity="center_vertical"
+            android:text="@string/enable_tremolo_switch_label"/>
+
+
+
+        <LinearLayout
+            android:id="@+id/tremoloRateSeekBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tremoloRateSeekBarLabel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".4"
+                android:gravity="center_vertical"
+                android:text="@string/tremolo_rate_seekbar_label"
+                />
+
+            <SeekBar
+                android:id="@+id/tremoloRateSeekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:indeterminate="false"
+                android:gravity="fill_horizontal"
+                android:max="@integer/tremolo_rate_seekbar_max"
+                android:paddingBottom="8dp"
+                android:progress="@integer/tremolo_rate_seekbar_default" />
+        </LinearLayout>
+
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

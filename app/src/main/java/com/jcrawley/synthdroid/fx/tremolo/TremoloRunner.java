@@ -28,14 +28,15 @@ public class TremoloRunner {
     }
 
 
-    public void setCounter(int value){
+    public void setRateCounter(int value){
         final int tremoloMaxRate = 101;
         initialTremoloRateCounter = tremoloMaxRate - value;
     }
 
 
-    public void startTremolo(){
+    public void startTremolo(int initialRate){
         if(isTremoloEnabled && !isTremoloStarted){
+            setRateCounter(initialRate);
             isTremoloStarted = true;
             currentAmplitude = 0.3f; // default value
             tremoloFuture = tremoloExecutorService.scheduleAtFixedRate(this::adjustTremoloValue, 0, 1, TimeUnit.MILLISECONDS);

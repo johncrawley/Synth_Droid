@@ -29,8 +29,8 @@ public class TremoloRunner {
 
 
     public void setRateCounter(int value){
-        final int tremoloMaxRate = 101;
-        initialTremoloRateCounter = tremoloMaxRate - value;
+        final int tremoloMaxInterval = 101;
+        initialTremoloRateCounter = tremoloMaxInterval - value;
     }
 
 
@@ -59,9 +59,9 @@ public class TremoloRunner {
 
 
     private void adjustTremoloValue(){
-        tremoloRateCounter-=2;
+        tremoloRateCounter-=1;
         if(tremoloRateCounter <= 0){
-            updateAmplitude();
+            updateAmplitudeSaw();
             mainActivity.setAmplitude(currentAmplitude);
             tremoloRateCounter = initialTremoloRateCounter;
         }
@@ -74,6 +74,30 @@ public class TremoloRunner {
             if(currentAmplitude <= minAmplitude){
                 switchTremoloDirection();
             }
+            return;
+        }
+        increaseAmplitude();
+        if(currentAmplitude >= maxAmplitude){
+            switchTremoloDirection();
+        }
+    }
+
+
+    void updateAmplitudeSquare(){
+        if(isTremoloAmplitudeDecreasing){
+            currentAmplitude = 0.01f;
+            switchTremoloDirection();
+            return;
+        }
+        currentAmplitude = 0.3f;
+        switchTremoloDirection();
+    }
+
+
+    void updateAmplitudeSaw(){
+        if(isTremoloAmplitudeDecreasing){
+            currentAmplitude = 0.01f;
+            switchTremoloDirection();
             return;
         }
         increaseAmplitude();

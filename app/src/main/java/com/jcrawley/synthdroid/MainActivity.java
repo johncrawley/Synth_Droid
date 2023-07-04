@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TremoloRunner tremoloRunner;
     private MainViewModel viewModel;
+    private final FrequencyHelper frequencyHelper = new FrequencyHelper();
 
 
     static {
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 tremoloRunner.startTremolo(viewModel.tremoloRate);
                 int y = (int) motionEvent.getY();
                 int extraHz = 240 + (2000 - y);
-                setFrequency(extraHz);
+                float noteFrequency = frequencyHelper.getNoteFrequencyFor((float)extraHz);
+                setFrequency(noteFrequency);
 
             } else if (action == MotionEvent.ACTION_UP) {
                 tremoloRunner.stopTremolo();

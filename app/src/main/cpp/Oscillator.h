@@ -38,6 +38,8 @@ public:
 
     void setFrequency(float freq);
 
+    void setChorusFrequency(float freq);
+
     void setAmplitude(float value);
 
     void setDefaultAmplitude();
@@ -48,9 +50,12 @@ private:
     // We use an atomic bool to define isWaveOn_ because it is accessed from multiple threads.
     std::atomic<bool> isWaveOn_{false};
     double phase_ = 0.0;
+    double chorusPhase_ = 0.0;
     double phaseIncrement_ = 0.0;
+    double chorusPhaseIncrement_ = 0.0;
     float amplitude = 0.3;
     float frequency = 240;
+    float chorusFrequency_ = 0;
     int32_t savedSampleRate = 100;
     bool isAmplitudeChangeDue_ = false;
     float adjustedAmplitude_ = 0.0;

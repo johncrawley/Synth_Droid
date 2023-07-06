@@ -56,6 +56,11 @@ void AudioEngine::setFrequency(float freq){
 }
 
 
+void AudioEngine::setChorusFrequency(float freq){
+    oscillator_.setChorusFrequency(freq);
+}
+
+
 void AudioEngine::setAmplitude(float amplitude){
     oscillator_.setAmplitude(amplitude);
 }

@@ -40,6 +40,8 @@ public:
 
     void setFrequency(float freq);
 
+    void setChorusFrequency(float freq);
+
     void setAmplitude(float amplitude);
 
 private:

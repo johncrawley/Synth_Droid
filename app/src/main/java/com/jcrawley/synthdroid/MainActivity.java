@@ -29,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
 
     private native void setFrequency(float freq);
 
+    public native void setChorusFrequency(float frequency);
+
     private native void startEngine();
 
     private native void stopEngine();
 
     public native void setAmplitude(float amplitude);
+
 
 
 
@@ -61,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
         inputView.setOnTouchListener((view, motionEvent) -> {
             int action = motionEvent.getAction();
             if (action == MotionEvent.ACTION_DOWN) {
+
                 tremoloRunner.startTremolo(viewModel.tremoloRate);
+                log("Down Touch Registered!");
             } else if (action == MotionEvent.ACTION_MOVE) {
                 tremoloRunner.startTremolo(viewModel.tremoloRate);
                 int y = (int) motionEvent.getY();
@@ -77,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void log(String msg){
+        System.out.println("^^^ MainActivity: " + msg);
+    }
 
     @Override
     public void onDestroy() {

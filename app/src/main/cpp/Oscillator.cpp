@@ -57,11 +57,20 @@ void  Oscillator::setFrequency(float freq){
 }
 
 
+void  Oscillator::setChorusFrequency(float freq){
+    chorusFrequency_ = frequency + freq;
+    chorusPhaseIncrement_ = (TWO_PI * chorusFrequency_) / (double) savedSampleRate;
+}
+
+
 void Oscillator::render(float *audioData, int32_t numFrames) {
 
     // If the wave has been switched off then reset the phase to zero. Starting at a non-zero value
     // could result in an unwanted audible 'click'
-    if (!isWaveOn_.load()) phase_ = 0;
+    if (!isWaveOn_.load()){
+        phase_ = 0;
+        chorusPhase_ = 0;
+    }
     float extra = 0;
     float limit = 0;
 
@@ -70,13 +79,14 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
         if (isWaveOn_.load()) {
 
             // Calculates the next sample value for the sine wave.
-            audioData[i] = (float) ((sin(phase_) * amplitude)) + extra;
+            audioData[i] = (float) ((sin(phase_) * amplitude)) + (float) ((sin(chorusPhase_) * amplitude));
             extra++;
             if(extra > limit){
                 extra = 0;
             }
             // Increments the phase, handling wrap around.
             phase_ += phaseIncrement_;
+            chorusPhase_ += chorusPhaseIncrement_;
 
 
             if (phase_ > TWO_PI){

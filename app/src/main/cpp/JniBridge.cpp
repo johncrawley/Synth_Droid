@@ -60,6 +60,13 @@ JNIEXPORT void JNICALL
 
 
 JNIEXPORT void JNICALL
+*Java_com_jcrawley_synthdroid_MainActivity_setChorusFrequency(JNIEnv *env, jobject, jfloat freq) {
+    audioEngine->setChorusFrequency(freq);
+    return nullptr;
+}
+
+
+JNIEXPORT void JNICALL
 *Java_com_jcrawley_synthdroid_MainActivity_setAmplitude(JNIEnv *env, jobject, jfloat amplitude) {
     audioEngine->setAmplitude(amplitude);
     return 0;

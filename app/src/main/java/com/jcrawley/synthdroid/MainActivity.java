@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.jcrawley.synthdroid.fx.chorus.ChorusRunner;
 import com.jcrawley.synthdroid.fx.tremolo.TremoloRunner;
 
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TremoloRunner tremoloRunner;
     private MainViewModel viewModel;
     private final FrequencyHelper frequencyHelper = new FrequencyHelper();
+    private ChorusRunner chorusRunner;
 
 
     static {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         startEngine();
         setupViews();
         tremoloRunner = new TremoloRunner(this);
+        chorusRunner = new ChorusRunner(this);
     }
 
     private void setupViewModel(){
@@ -61,14 +64,23 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     public void setupInputView() {
         View inputView = findViewById(R.id.inputView);
+        int chorusRate = 100;
+
         inputView.setOnTouchListener((view, motionEvent) -> {
             int action = motionEvent.getAction();
+            for (int i = 0; i < motionEvent.getPointerCount(); i++) {
+                float x = motionEvent.getX(i);
+                float y = motionEvent.getY(i);
+                log("pointer x,y for " +  i + " = " + x + "," + y + " event: " + motionEvent.getAction());
+            }
             if (action == MotionEvent.ACTION_DOWN) {
 
                 tremoloRunner.startTremolo(viewModel.tremoloRate);
+                chorusRunner.startChorus(chorusRate);
                 log("Down Touch Registered!");
             } else if (action == MotionEvent.ACTION_MOVE) {
                 tremoloRunner.startTremolo(viewModel.tremoloRate);
+                chorusRunner.startChorus(chorusRate);
                 int y = (int) motionEvent.getY();
                 int extraHz = 240 + (2000 - y);
                 float noteFrequency = frequencyHelper.getNoteFrequencyFor((float)extraHz);
@@ -76,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (action == MotionEvent.ACTION_UP) {
                 tremoloRunner.stopTremolo();
+                chorusRunner.stopChorus();
             }
             touchEvent(motionEvent.getAction());
             return false;
@@ -95,9 +108,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViews(){
         setupTremoloSettings();
+        setupChorusSettings();
         setupInputView();
     }
 
+
+    private void setupChorusSettings(){
+        SwitchMaterial enableChorusSwitch = findViewById(R.id.enableChorusSwitch);
+        enableChorusSwitch.setOnCheckedChangeListener((view, isChecked) ->{
+            chorusRunner.setEnabled(isChecked);
+        });
+    }
 
     private void setupTremoloSettings(){
         SwitchMaterial enableTremoloSwitch = findViewById(R.id.enableTremoloSwitch);

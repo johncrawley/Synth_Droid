@@ -71,19 +71,16 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
         phase_ = 0;
         chorusPhase_ = 0;
     }
-    float extra = 0;
-    float limit = 0;
+
 
     for (int i = 0; i < numFrames; i++) {
 
         if (isWaveOn_.load()) {
 
             // Calculates the next sample value for the sine wave.
-            audioData[i] = (float) ((sin(phase_) * amplitude)) + (float) ((sin(chorusPhase_) * amplitude));
-            extra++;
-            if(extra > limit){
-                extra = 0;
-            }
+            audioData[i] = (float) ((sin(phase_) * amplitude))
+                        + (float) ((sin(chorusPhase_) * amplitude));
+
             // Increments the phase, handling wrap around.
             phase_ += phaseIncrement_;
             chorusPhase_ += chorusPhaseIncrement_;

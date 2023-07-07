@@ -11,20 +11,17 @@ public class ChorusRunner {
 
 
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-    private int tremoloRateCounter = 100;
-    private int initialTremoloRateCounter = 100;
+    private int rateCounter = 100;
+    private int initialRateCounter = 100;
     private Future<?> future;
     private boolean isChorusEnabled;
-    private final float maxValue = 0.3f;
-    private final float minFrequency = 0.01f;
-    private final float valueStep = 0.02f;
+    private final float maxValue = 10f;
+    private final float minFrequency = -10f;
+    private final float valueStep = 0.5f;
     private boolean isValueDecreasing = true;
-    private float currentFrequency = 0.3f;
+    private float currentFrequency = 0f;
     private boolean hasChorusStarted = false;
     private final MainActivity mainActivity;
-
-    private float chorusDepth = 10.0f;
-
 
 
     public ChorusRunner(MainActivity mainActivity){
@@ -44,7 +41,7 @@ public class ChorusRunner {
 
     public void setRateCounter(int value){
         final int maxInterval = 101;
-        initialTremoloRateCounter = maxInterval - value;
+        initialRateCounter = maxInterval - value;
     }
 
 
@@ -63,11 +60,11 @@ public class ChorusRunner {
 
 
     private void adjustValue(){
-        tremoloRateCounter-=1;
-        if(tremoloRateCounter <= 0){
+        rateCounter -=1;
+        if(rateCounter <= 0){
             updateChorusFrequency();
             mainActivity.setChorusFrequency(currentFrequency);
-            tremoloRateCounter = initialTremoloRateCounter;
+            rateCounter = initialRateCounter;
         }
     }
 

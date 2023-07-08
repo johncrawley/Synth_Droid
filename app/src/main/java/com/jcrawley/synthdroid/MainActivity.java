@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     public native void setAmplitude(float amplitude);
 
 
+    public native void enableChorus(boolean isEnabled);
+
+
 
 
     @Override
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         SwitchMaterial enableChorusSwitch = findViewById(R.id.enableChorusSwitch);
         enableChorusSwitch.setOnCheckedChangeListener((view, isChecked) ->{
             chorusRunner.setEnabled(isChecked);
+            enableChorus(isChecked);
         });
     }
 

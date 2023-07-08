@@ -75,7 +75,15 @@ JNIEXPORT void JNICALL
 
 JNIEXPORT void JNICALL
 *Java_com_jcrawley_synthdroid_MainActivity_stopEngine(JNIEnv *env, jobject /* this */) {
-audioEngine->stop();
+    audioEngine->stop();
+    return 0;
+}
+
+
+
+JNIEXPORT void JNICALL
+*Java_com_jcrawley_synthdroid_MainActivity_enableChorus(JNIEnv *env, jobject, jboolean isEnabled) {
+    audioEngine->enableChorus(isEnabled);
     return 0;
 }
 

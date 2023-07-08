@@ -44,6 +44,9 @@ public:
 
     void setAmplitude(float amplitude);
 
+    void enableChorus(bool isEnabled);
+
+
 private:
     Oscillator oscillator_;
     AAudioStream *stream_;

@@ -66,6 +66,11 @@ void AudioEngine::setAmplitude(float amplitude){
 }
 
 
+void AudioEngine::enableChorus(bool isEnabled){
+    oscillator_.enableChorus(isEnabled);
+}
+
+
 bool AudioEngine::start() {
     AAudioStreamBuilder *streamBuilder;
     AAudio_createStreamBuilder(&streamBuilder);

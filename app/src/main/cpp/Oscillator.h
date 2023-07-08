@@ -44,6 +44,7 @@ public:
 
     void setDefaultAmplitude();
 
+    void enableChorus(bool enabled);
 
 
 private:
@@ -56,6 +57,7 @@ private:
     float amplitude = 0.3;
     float frequency = 240;
     float chorusFrequency_ = 0;
+    bool isChorusEnabled_;
     int32_t savedSampleRate = 100;
     bool isAmplitudeChangeDue_ = false;
     float adjustedAmplitude_ = 0.0;

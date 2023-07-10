@@ -92,6 +92,7 @@ bool AudioEngine::start() {
     int32_t sampleRate = AAudioStream_getSampleRate(stream_);
     oscillator_.setDefaultAmplitude();
     oscillator_.setSampleRate(sampleRate);
+    __android_log_print(ANDROID_LOG_ERROR, "AudioEngine", "Sample Rate: %d", sampleRate);
 
     // Sets the buffer size.
     AAudioStream_setBufferSizeInFrames(

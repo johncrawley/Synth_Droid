@@ -45,9 +45,18 @@ JNIEXPORT void JNICALL
     return 0;
 }
 
+
+
 JNIEXPORT void JNICALL
 *Java_com_jcrawley_synthdroid_MainActivity_startEngine(JNIEnv *env, jobject /* this */) {
     audioEngine->start();
+    return 0;
+}
+
+
+JNIEXPORT void JNICALL
+*Java_com_jcrawley_synthdroid_MainActivity_setToneOn(JNIEnv *env, jobject /* this */, jboolean isToneOn) {
+    audioEngine->setToneOn(isToneOn);
     return 0;
 }
 

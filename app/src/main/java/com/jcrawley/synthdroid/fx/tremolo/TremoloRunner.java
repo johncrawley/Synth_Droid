@@ -18,6 +18,7 @@ public class TremoloRunner {
     private final float minAmplitude = 0.01f;
     private final float amplitudeStep = 0.02f;
     private boolean isTremoloAmplitudeDecreasing = true;
+    private float initialAmplitude = 0.3f;
     private float currentAmplitude = 0.3f;
     private boolean isTremoloStarted = false;
     private final MainActivity mainActivity;
@@ -38,9 +39,14 @@ public class TremoloRunner {
         if(isTremoloEnabled && !isTremoloStarted){
             setRateCounter(initialRate);
             isTremoloStarted = true;
-            currentAmplitude = 0.3f; // default value
+            currentAmplitude = initialAmplitude;
             tremoloFuture = tremoloExecutorService.scheduleAtFixedRate(this::adjustTremoloValue, 0, 1, TimeUnit.MILLISECONDS);
         }
+    }
+
+
+    public float getCurrentAmplitude(){
+        return currentAmplitude;
     }
 
 
@@ -50,6 +56,7 @@ public class TremoloRunner {
         }
         tremoloFuture.cancel(true);
         isTremoloStarted = false;
+        currentAmplitude = initialAmplitude;
     }
 
 

@@ -10,11 +10,9 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.jcrawley.synthdroid.fx.DecayHelper;
 import com.jcrawley.synthdroid.fx.chorus.ChorusRunner;
 import com.jcrawley.synthdroid.fx.tremolo.TremoloRunner;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel viewModel;
     private final FrequencyHelper frequencyHelper = new FrequencyHelper();
     private ChorusRunner chorusRunner;
+    private DecayHelper decayHelper;
+    private final int chorusRate = 100;
+
 
 
     static {
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setupViewModel();
         startEngine();
         setupViews();
-
+        decayHelper = new DecayHelper(this);
         tremoloRunner = new TremoloRunner(this);
         chorusRunner = new ChorusRunner(this);
     }
@@ -66,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private final int chorusRate = 100;
+
+    public TremoloRunner getTremoloRunner(){
+        return tremoloRunner;
+    }
+
 
     @SuppressLint("ClickableViewAccessibility")
     public void setupInputView() {
@@ -89,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
             else if (action == MotionEvent.ACTION_UP) {
                 onUp();
             }
-            //touchEvent(motionEvent.getAction());
             return false;
         });
     }
@@ -99,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         tremoloRunner.startTremolo(viewModel.tremoloRate);
         chorusRunner.startChorus(chorusRate);
         assignFrequencyFromMotionEvent(motionEvent);
+        decayHelper.onNewNotePressed();
         setToneOn(true);
-        log("Down Touch Registered!");
     }
 
 
@@ -114,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
     private void onUp(){
         tremoloRunner.stopTremolo();
         chorusRunner.stopChorus();
-        setToneOn(false);
+        decayHelper.decayNoteAndStop();
     }
+
 
     private void assignFrequencyFromMotionEvent(MotionEvent motionEvent){
         setFrequency(getFrequencyFrom(motionEvent));
@@ -131,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     private void log(String msg){
         System.out.println("^^^ MainActivity: " + msg);
     }
+
 
     @Override
     public void onDestroy() {

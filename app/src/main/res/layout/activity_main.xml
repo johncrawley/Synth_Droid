@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
 
-    <View
+    <com.jcrawley.synthdroid.view.TransparentView
         android:id="@+id/inputView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

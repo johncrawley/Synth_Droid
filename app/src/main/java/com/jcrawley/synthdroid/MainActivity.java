@@ -13,6 +13,8 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.jcrawley.synthdroid.fx.DecayHelper;
 import com.jcrawley.synthdroid.fx.chorus.ChorusRunner;
 import com.jcrawley.synthdroid.fx.tremolo.TremoloRunner;
+import com.jcrawley.synthdroid.view.NoteItemFactory;
+import com.jcrawley.synthdroid.view.TransparentView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ChorusRunner chorusRunner;
     private DecayHelper decayHelper;
     private final int chorusRate = 100;
+    private TransparentView inputView;
 
 
 
@@ -60,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NoteItemFactory noteItemFactory = new NoteItemFactory(inputView);
+        noteItemFactory.addNotes(12);
+        inputView.invalidate();
+    }
+
+
     private void setupViewModel(){
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         if(viewModel.tremoloRate < 0){
@@ -75,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     public void setupInputView() {
-        View inputView = findViewById(R.id.inputView);
-
+        inputView = findViewById(R.id.inputView);
 
         inputView.setOnTouchListener((view, motionEvent) -> {
             int action = motionEvent.getAction();

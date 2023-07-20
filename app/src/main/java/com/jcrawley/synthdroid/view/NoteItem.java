@@ -32,5 +32,9 @@ public class NoteItem implements SimpleDrawableItem{
         canvas.drawText(noteStr, textX, textY, paint);
     }
 
+    public void onMotion(int x, int y, boolean isDownOrMoveAction){
+       isSelected = isDownOrMoveAction && borderRect.contains(x,y);
+    }
+
 
 }

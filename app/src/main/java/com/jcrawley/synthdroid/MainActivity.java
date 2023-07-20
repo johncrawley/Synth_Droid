@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.SeekBar;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.jcrawley.synthdroid.fx.DecayHelper;
 import com.jcrawley.synthdroid.fx.chorus.ChorusRunner;
 import com.jcrawley.synthdroid.fx.tremolo.TremoloRunner;
-import com.jcrawley.synthdroid.view.NoteItemFactory;
+import com.jcrawley.synthdroid.view.NoteItemManager;
 import com.jcrawley.synthdroid.view.TransparentView;
 
 
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private DecayHelper decayHelper;
     private final int chorusRate = 100;
     private TransparentView inputView;
+    private NoteItemManager noteItemManager;
 
 
 
@@ -64,11 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        NoteItemFactory noteItemFactory = new NoteItemFactory(inputView);
-        noteItemFactory.addNotes(12);
-        inputView.invalidate();
+    protected void onStart() {
+        super.onStart();
+
     }
 
 
@@ -85,17 +84,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void setupKeyInputs(){
+        noteItemManager = new NoteItemManager(inputView);
+        inputView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                inputView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                noteItemManager.addNotes(12);
+                inputView.invalidate();
+            }
+        });
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     public void setupInputView() {
         inputView = findViewById(R.id.inputView);
+        setupKeyInputs();
 
         inputView.setOnTouchListener((view, motionEvent) -> {
             int action = motionEvent.getAction();
+           // log("*********************");
             for (int i = 0; i < motionEvent.getPointerCount(); i++) {
                 float x = motionEvent.getX(i);
                 float y = motionEvent.getY(i);
-                log("pointer x,y for " +  i + " = " + x + "," + y + " event: " + motionEvent.getAction());
+              //  log("pointer x,y for " +  i + " = " + x + "," + y + " event: " + motionEvent.getAction());
             }
+            noteItemManager.motion((int)motionEvent.getX(), (int)motionEvent.getY(), action);
             if (action == MotionEvent.ACTION_DOWN) {
                 onDown(motionEvent);
             }
@@ -136,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
     private void assignFrequencyFromMotionEvent(MotionEvent motionEvent){
         setFrequency(getFrequencyFrom(motionEvent));
     }
+
 
     private float getFrequencyFrom(MotionEvent motionEvent){
         int y = (int) motionEvent.getY();

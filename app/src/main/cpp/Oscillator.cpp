@@ -24,6 +24,7 @@
 
 #include "Oscillator.h"
 #include <cmath>
+#include <android/log.h>
 
 #define TWO_PI (3.14159 * 2)
 #define DEFAULT_AMPLITUDE 0.3
@@ -77,12 +78,10 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
         chorusPhase_ = 0;
     }
 
-
     for (int i = 0; i < numFrames; i++) {
 
         if (isWaveOn_.load()) {
             float chorusComponent = 0;
-
             if(isChorusEnabled_ ){
                 chorusComponent = (float) ((sin(chorusPhase_) * amplitude));
                 chorusPhase_ += chorusPhaseIncrement_;

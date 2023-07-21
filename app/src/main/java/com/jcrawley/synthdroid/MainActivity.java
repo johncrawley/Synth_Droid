@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private native void touchEvent(int action);
 
-    private native void setFrequency(float freq);
+    public native void setFrequency(float freq);
 
     public native void setChorusFrequency(float frequency);
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupKeyInputs(){
-        noteItemManager = new NoteItemManager(inputView);
+        noteItemManager = new NoteItemManager(this, inputView);
         inputView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -124,10 +124,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     private void onDown(MotionEvent motionEvent){
         tremoloRunner.startTremolo(viewModel.tremoloRate);
         chorusRunner.startChorus(chorusRate);
-        assignFrequencyFromMotionEvent(motionEvent);
+       // assignFrequencyFromMotionEvent(motionEvent);
         decayHelper.onNewNotePressed();
         setToneOn(true);
     }
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
     private void onMove(MotionEvent motionEvent){
         tremoloRunner.startTremolo(viewModel.tremoloRate);
         chorusRunner.startChorus(chorusRate);
-        assignFrequencyFromMotionEvent(motionEvent);
+       // assignFrequencyFromMotionEvent(motionEvent);
     }
 
 

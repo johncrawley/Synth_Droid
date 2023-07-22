@@ -90,11 +90,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onGlobalLayout() {
                 inputView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                noteItemManager.addNotes(12);
+                noteItemManager.addNotes(24);
                 inputView.invalidate();
             }
         });
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     public void setupInputView() {

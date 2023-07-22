@@ -1,7 +1,6 @@
 package com.jcrawley.synthdroid.view;
 
-import android.graphics.Color;
-import android.graphics.Paint;
+
 import android.view.MotionEvent;
 
 import com.jcrawley.synthdroid.MainActivity;
@@ -9,12 +8,12 @@ import com.jcrawley.synthdroid.MusicNote;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class NoteItemManager {
 
     private final TransparentView transparentView;
-    private Paint unselectedPaint, selectedPaint;
     private final List<NoteItem> noteItems;
     private final MainActivity activity;
     private float previousFreq;
@@ -24,15 +23,6 @@ public class NoteItemManager {
         this.activity = mainActivity;
         this.transparentView = transparentView;
         noteItems = new ArrayList<>(100);
-        setupPaints();
-    }
-
-
-    private void setupPaints() {
-        unselectedPaint = new Paint();
-        unselectedPaint.setColor(Color.GRAY);
-        selectedPaint = new Paint();
-        selectedPaint.setColor(Color.YELLOW);
     }
 
 
@@ -48,15 +38,23 @@ public class NoteItemManager {
 
     public void addNotes(int numberOfNotes){
         int itemWidth = transparentView.getMeasuredWidth();
-        int itemHeight = transparentView.getMeasuredHeight() / numberOfNotes;
-        MusicNote[] musicNotes = MusicNote.values();
-        MusicNote[] musicNotes2 = Arrays.copyOfRange(musicNotes, 48, 72);
+        float itemHeight = transparentView.getMeasuredHeight() / (float)numberOfNotes;
+        MusicNote[] musicNotes = getSelectionOfNotes();
+
         for(int i = 0; i < numberOfNotes; i++){
-            MusicNote musicNote = musicNotes2[i];
-            NoteItem noteItem = new NoteItem(musicNote, 0, itemHeight * i, itemWidth, itemHeight, unselectedPaint, selectedPaint, this);
+            MusicNote musicNote = musicNotes[i];
+            NoteItem noteItem = new NoteItem(musicNote, 0, itemHeight * i, itemWidth, itemHeight, this);
             noteItems.add(noteItem);
             transparentView.addItem(noteItem);
         }
+    }
+
+
+    private MusicNote[] getSelectionOfNotes(){
+        MusicNote[] musicNotes = MusicNote.values();
+        MusicNote[] musicNotes2 = Arrays.copyOfRange(musicNotes, 48, 72);
+        Collections.reverse(Arrays.asList(musicNotes2));
+        return musicNotes2;
     }
 
     public void motion(int x, int y, int action){

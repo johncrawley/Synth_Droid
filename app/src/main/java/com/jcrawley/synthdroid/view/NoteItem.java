@@ -3,7 +3,6 @@ package com.jcrawley.synthdroid.view;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 
 import com.jcrawley.synthdroid.MusicNote;

@@ -30,7 +30,7 @@ public class DecayHelper {
 
     public void decayNoteAndStop(){
         currentAmplitude = mainActivity.getTremoloRunner().getCurrentAmplitude();
-        future = executorService.scheduleAtFixedRate(this::reduceVolume, 0, 10, TimeUnit.MILLISECONDS);
+        future = executorService.scheduleAtFixedRate(this::reduceVolume, 0, 2, TimeUnit.MILLISECONDS);
 
     }
 
@@ -41,7 +41,7 @@ public class DecayHelper {
             mainActivity.setToneOn(false);
             return;
         }
-        final float volumeReductionStep = 0.02f;
+        final float volumeReductionStep = 0.002f;
         currentAmplitude = Math.max(0, currentAmplitude - volumeReductionStep);
         mainActivity.setAmplitude(currentAmplitude);
     }

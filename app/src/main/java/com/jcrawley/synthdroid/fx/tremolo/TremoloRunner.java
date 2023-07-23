@@ -11,12 +11,12 @@ public class TremoloRunner {
 
     private final ScheduledExecutorService tremoloExecutorService = Executors.newSingleThreadScheduledExecutor();
     private int tremoloRateCounter = 100;
-    private int initialTremoloRateCounter = 100;
+    private int initialTremoloRateCounter = 10;
     private Future<?> tremoloFuture;
     private boolean isTremoloEnabled;
     private final float maxAmplitude = 0.3f;
-    private final float minAmplitude = 0.01f;
-    private final float amplitudeStep = 0.02f;
+    private final float minAmplitude = 0.005f;
+    private final float amplitudeStep = 0.001f;
     private boolean isTremoloAmplitudeDecreasing = true;
     private float initialAmplitude = 0.3f;
     private float currentAmplitude = 0.3f;
@@ -31,7 +31,7 @@ public class TremoloRunner {
 
     public void setRateCounter(int value){
         final int tremoloMaxInterval = 101;
-        initialTremoloRateCounter = tremoloMaxInterval - value;
+        initialTremoloRateCounter = (tremoloMaxInterval - value) /8;
     }
 
 
@@ -66,12 +66,7 @@ public class TremoloRunner {
 
 
     private void adjustTremoloValue(){
-        tremoloRateCounter-=1;
-        if(tremoloRateCounter <= 0){
             updateAmplitudeSaw();
-            mainActivity.setAmplitude(currentAmplitude);
-            tremoloRateCounter = initialTremoloRateCounter;
-        }
     }
 
 
@@ -103,8 +98,11 @@ public class TremoloRunner {
 
     void updateAmplitudeSaw(){
         if(isTremoloAmplitudeDecreasing){
-            currentAmplitude = 0.01f;
-            switchTremoloDirection();
+            currentAmplitude -= amplitudeStep;
+            mainActivity.setAmplitude(currentAmplitude);
+            if(currentAmplitude <= 0.005f) {
+                switchTremoloDirection();
+            }
             return;
         }
         increaseAmplitude();
@@ -122,8 +120,13 @@ public class TremoloRunner {
 
 
     void increaseAmplitude(){
-        if(currentAmplitude < maxAmplitude){
-            currentAmplitude += amplitudeStep;
+        tremoloRateCounter-=1;
+        if(tremoloRateCounter <= 0){
+            if(currentAmplitude < maxAmplitude){
+                currentAmplitude += amplitudeStep;
+            }
+            mainActivity.setAmplitude(currentAmplitude);
+            tremoloRateCounter = initialTremoloRateCounter;
         }
     }
 

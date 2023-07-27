@@ -11,5 +11,6 @@ public enum Interval {
     MAJOR_SIXTH,
     MINOR_SEVENTH,
     MAJOR_SEVENTH,
-    OCTAVE
+    OCTAVE;
+
 }

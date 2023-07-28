@@ -71,6 +71,9 @@ private:
         amplitude = adjustedAmplitude_;
     }
 
+
+
+
 };
 
 

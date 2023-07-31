@@ -27,6 +27,7 @@
 
 #include <atomic>
 #include <stdint.h>
+#include "Tremolo.h"
 
 class Oscillator {
 public:
@@ -61,6 +62,7 @@ private:
     int32_t savedSampleRate = 100;
     bool isAmplitudeChangeDue_ = false;
     float adjustedAmplitude_ = 0.0;
+    Tremolo tremolo;
 
 
     void adjustAmplitude(){
@@ -70,7 +72,6 @@ private:
         isAmplitudeChangeDue_ = false;
         amplitude = adjustedAmplitude_;
     }
-
 
 
 

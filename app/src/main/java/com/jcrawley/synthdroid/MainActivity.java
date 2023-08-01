@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     public native void enableChorus(boolean isEnabled);
 
+    public native void enableTremolo (boolean isEnabled);
+
     public native void setToneOn(boolean isToneOn);
 
 
@@ -104,12 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
         inputView.setOnTouchListener((view, motionEvent) -> {
             int action = motionEvent.getAction();
-           // log("*********************");
-            for (int i = 0; i < motionEvent.getPointerCount(); i++) {
-                float x = motionEvent.getX(i);
-                float y = motionEvent.getY(i);
-              //  log("pointer x,y for " +  i + " = " + x + "," + y + " event: " + motionEvent.getAction());
-            }
+            printMotionEvent(motionEvent);
             noteItemManager.motion((int)motionEvent.getX(), (int)motionEvent.getY(), action);
             if (action == MotionEvent.ACTION_DOWN) {
                 onDown(motionEvent);
@@ -125,6 +122,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void printMotionEvent(MotionEvent motionEvent){
+        // log("*********************");
+        for (int i = 0; i < motionEvent.getPointerCount(); i++) {
+            float x = motionEvent.getX(i);
+            float y = motionEvent.getY(i);
+            //  log("pointer x,y for " +  i + " = " + x + "," + y + " event: " + motionEvent.getAction());
+        }
+    }
 
 
     private void onDown(MotionEvent motionEvent){
@@ -193,7 +198,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupTremoloSettings(){
         SwitchMaterial enableTremoloSwitch = findViewById(R.id.enableTremoloSwitch);
         enableTremoloSwitch.setOnCheckedChangeListener((view, isChecked) ->{
-            tremoloRunner.setEnabled(isChecked);
+           // tremoloRunner.setEnabled(isChecked);
+            enableTremolo(isChecked);
         });
         setupTremoloRateSeekBar();
     }

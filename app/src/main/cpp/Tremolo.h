@@ -5,7 +5,6 @@
 #ifndef SYNTH_DROID_TREMOLO_H
 #define SYNTH_DROID_TREMOLO_H
 
-
 #include "Oscillator.h"
 
 class Tremolo {

@@ -46,6 +46,10 @@ public:
 
     void enableChorus(bool isEnabled);
 
+    void enableTremolo(bool isEnabled);
+
+    void setTremoloRate(int rate);
+
 
 private:
     Oscillator oscillator_;

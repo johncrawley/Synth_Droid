@@ -47,6 +47,8 @@ public:
 
     void enableChorus(bool enabled);
 
+    void enableTremolo(bool enabled);
+
 
 private:
     // We use an atomic bool to define isWaveOn_ because it is accessed from multiple threads.

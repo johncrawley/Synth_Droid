@@ -69,6 +69,11 @@ void  Oscillator::enableChorus(bool enabled){
 }
 
 
+void  Oscillator::enableTremolo(bool enabled) {
+    tremolo.setEnabled(enabled);
+}
+
+
 void Oscillator::render(float *audioData, int32_t numFrames) {
 
     // If the wave has been switched off then reset the phase to zero. Starting at a non-zero value
@@ -97,6 +102,7 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
             if (phase_ > TWO_PI){
                 phase_ -= TWO_PI;
                 adjustAmplitude();
+                tremolo.update(this);
             }
         } else {
             // Outputs silence by setting sample value to zero.

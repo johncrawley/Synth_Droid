@@ -71,6 +71,16 @@ void AudioEngine::enableChorus(bool isEnabled){
 }
 
 
+void AudioEngine::enableTremolo(bool isEnabled){
+    oscillator_.enableTremolo(isEnabled);
+}
+
+
+void AudioEngine::setTremoloRate(int rate){
+    //oscillator_.setTremoloRate(rate);
+}
+
+
 bool AudioEngine::start() {
     AAudioStreamBuilder *streamBuilder;
     AAudio_createStreamBuilder(&streamBuilder);

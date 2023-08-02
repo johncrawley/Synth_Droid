@@ -72,6 +72,7 @@ void AudioEngine::enableChorus(bool isEnabled){
 
 
 void AudioEngine::enableTremolo(bool isEnabled){
+    __android_log_print(ANDROID_LOG_INFO, "AudioEngine", "Current Amplitude: %f", oscillator_.getAmplitude());
     oscillator_.enableTremolo(isEnabled);
 }
 

@@ -97,7 +97,7 @@ JNIEXPORT void JNICALL
 
 JNIEXPORT void JNICALL
 *Java_com_jcrawley_synthdroid_MainActivity_enableTremolo(JNIEnv *env, jobject, jboolean isEnabled) {
-    audioEngine->enableChorus(isEnabled);
+    audioEngine->enableTremolo(isEnabled);
     return 0;
 }
 

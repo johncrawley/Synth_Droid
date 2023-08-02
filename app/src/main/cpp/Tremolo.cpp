@@ -3,7 +3,7 @@
 //
 
 #include "Tremolo.h"
-#include "Oscillator.h"
+#include <android/log.h>
 
 
 void Tremolo::setEnabled(bool isEnabled) {
@@ -12,18 +12,18 @@ void Tremolo::setEnabled(bool isEnabled) {
 
 
 void Tremolo::setRate(int rate){
-    rate_ = rate;
+    tremoloDecreaseRate_ = rate;
 }
 
 
-void Tremolo::update(Oscillator &oscillator) {
+float Tremolo::getAmplitude(){
+    return currentAmplitude;
+}
+
+
+void Tremolo::update() {
     if(!isEnabled_){
         return;
     }
-    tremoloCounter_++;
-    if (tremoloCounter_ > rate_) {
-        tremoloCounter_ = 0;
-        adjustCurrentAmplitude();
-        oscillator.setAmplitude(currentAmplitude);
-    }
+   adjustCurrentAmplitude();
 }

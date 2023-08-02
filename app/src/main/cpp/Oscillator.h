@@ -49,6 +49,8 @@ public:
 
     void enableTremolo(bool enabled);
 
+    float getAmplitude();
+
 
 private:
     // We use an atomic bool to define isWaveOn_ because it is accessed from multiple threads.

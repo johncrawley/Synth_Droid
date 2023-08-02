@@ -5,7 +5,6 @@
 #ifndef SYNTH_DROID_TREMOLO_H
 #define SYNTH_DROID_TREMOLO_H
 
-#include "Oscillator.h"
 
 class Tremolo {
 
@@ -14,50 +13,61 @@ public:
 
     void setRate(int rate);
 
-    void update(Oscillator &oscillator);
+    void update();
+
+    float getAmplitude();
 
 
 
 private:
-    int rate_ = 10000;
-    int tremoloCounter_ = 0;
+    int tremoloDecreaseRate_ = 1000;
+    int tremoloDecreaseCounter_ = 0;
     int tremoloIncreaseCounter_ = 0;
-    int tremoloIncreaseRate_ = 3000;
+    int tremoloIncreaseRate_ = 2000;
     bool isEnabled_ = false;
-    float currentAmplitude = 0.5;
-    bool isAmplitudeDecreasing_ = false;
-    float amplitudeStep_ = 0.001;
-    float maxAmplitude = 0.5;
+    float currentAmplitude = 0.5f;
+    bool isAmplitudeDecreasing_ = true;
+    float amplitudeStep_ = 0.01;
+    float maxAmplitude_ = 0.5;
 
 
     void adjustCurrentAmplitude(){
         if(isAmplitudeDecreasing_){
+            decreaseAmplitude();
+            return;
+        }
+        increaseAmplitude();
+    }
+
+
+    void decreaseAmplitude(){
+        tremoloDecreaseCounter_++;
+        if (tremoloDecreaseCounter_ >= tremoloDecreaseRate_) {
+            tremoloDecreaseCounter_ = 0;
             currentAmplitude -= amplitudeStep_;
             if(currentAmplitude <= 0.005f) {
                 switchTremoloDirection();
             }
-            return;
         }
-        increaseAmplitude();
-        if(currentAmplitude >= maxAmplitude){
-            switchTremoloDirection();
-        }
-    }
-
-    void switchTremoloDirection(){
-        isAmplitudeDecreasing_ = !isAmplitudeDecreasing_;
     }
 
 
     void increaseAmplitude(){
-        if(tremoloIncreaseCounter_++ == tremoloIncreaseRate_){
-            if(currentAmplitude < maxAmplitude){
-                currentAmplitude += amplitudeStep_;
-            }
+        tremoloIncreaseCounter_++;
+        if(tremoloIncreaseCounter_ >= tremoloIncreaseRate_){
+            currentAmplitude += amplitudeStep_;
             tremoloIncreaseCounter_ = 0;
+        }
+        if(currentAmplitude >= maxAmplitude_){
+            currentAmplitude = maxAmplitude_;
+            switchTremoloDirection();
         }
     }
 
+
+    void switchTremoloDirection(){
+        isAmplitudeDecreasing_ ^= true;
+    }
 };
 
 

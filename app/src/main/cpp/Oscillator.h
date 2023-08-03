@@ -41,6 +41,8 @@ public:
 
     void setChorusFrequency(float freq);
 
+    void setTremoloRate(int value);
+
     void setAmplitude(float value);
 
     void setDefaultAmplitude();

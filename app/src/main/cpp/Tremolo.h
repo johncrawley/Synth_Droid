@@ -20,14 +20,14 @@ public:
 
 
 private:
-    int tremoloDecreaseRate_ = 1000;
+    int tremoloDecreaseRate_ = 200;
     int tremoloDecreaseCounter_ = 0;
     int tremoloIncreaseCounter_ = 0;
     int tremoloIncreaseRate_ = 2000;
     bool isEnabled_ = false;
     float currentAmplitude = 0.5f;
     bool isAmplitudeDecreasing_ = true;
-    float amplitudeStep_ = 0.01;
+    float amplitudeStep_ = 0.005;
     float maxAmplitude_ = 0.5;
 
 

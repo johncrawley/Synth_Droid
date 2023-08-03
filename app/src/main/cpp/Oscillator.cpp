@@ -69,6 +69,12 @@ void  Oscillator::setChorusFrequency(float freq){
 }
 
 
+void  Oscillator::setTremoloRate(int value){
+    tremolo.setRate(value);
+}
+
+
+
 void  Oscillator::enableChorus(bool enabled){
     isChorusEnabled_ = enabled;
 }
@@ -112,7 +118,7 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
             float adjustedAmplitude = tremolo.getAmplitude();
             if(amplitude != adjustedAmplitude){
                 amplitude = adjustedAmplitude;
-                __android_log_print(ANDROID_LOG_INFO, "^^^ ", "Current Amplitude: %f", amplitude);
+                //__android_log_print(ANDROID_LOG_INFO, "^^^ ", "Current Amplitude: %f", amplitude);
             }
             amplitude = tremolo.getAmplitude();
         } else {

@@ -50,9 +50,6 @@
             android:gravity="center_vertical"
             android:text="@string/enable_tremolo_switch_label"/>
 
-
-
-
         <LinearLayout
             android:id="@+id/tremoloRateSeekBarLayout"
             android:layout_width="match_parent"

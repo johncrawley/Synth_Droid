@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     public native void enableTremolo (boolean isEnabled);
 
+    public native void setTremoloRate (int value);
+
     public native void setToneOn(boolean isToneOn);
 
 
@@ -212,12 +214,18 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 viewModel.tremoloRate = i;
                 tremoloRunner.setRateCounter(i);
+                setTremoloRate(calculateTremoloRate(i));
             }
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+        setTremoloRate(calculateTremoloRate(seekBar.getProgress()));
     }
 
+    private int calculateTremoloRate(int seekBarValue){
+        int maxRate = getResources().getInteger(R.integer.tremolo_rate_seekbar_max);
+        return (int)(1 + ((maxRate - seekBarValue) * (5f / (seekBarValue + 0.1f))));
+    }
 
 }
 

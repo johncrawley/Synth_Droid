@@ -12,7 +12,7 @@ void Tremolo::setEnabled(bool isEnabled) {
 
 
 void Tremolo::setRate(int rate){
-    tremoloDecreaseRate_ = rate;
+    tremoloIncreaseRate_ = rate;
 }
 
 

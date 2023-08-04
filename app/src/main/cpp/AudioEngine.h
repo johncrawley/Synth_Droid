@@ -54,6 +54,7 @@ public:
 private:
     Oscillator oscillator_;
     AAudioStream *stream_;
+    bool isStarted_ = false;
 };
 
 

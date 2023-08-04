@@ -82,6 +82,10 @@ void AudioEngine::setTremoloRate(int value){
 
 
 bool AudioEngine::start() {
+    if(isStarted_){
+        return false;
+    }
+    isStarted_ = true;
     AAudioStreamBuilder *streamBuilder;
     AAudio_createStreamBuilder(&streamBuilder);
     AAudioStreamBuilder_setFormat(streamBuilder, AAUDIO_FORMAT_PCM_FLOAT);
@@ -126,6 +130,7 @@ void AudioEngine::stop() {
         AAudioStream_requestStop(stream_);
         AAudioStream_close(stream_);
     }
+    isStarted_ = false;
 }
 
 

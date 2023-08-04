@@ -173,6 +173,21 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("^^^ MainActivity: " + msg);
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        onUp();
+        noteItemManager.releaseAll();
+        stopEngine();
+    }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        startEngine();
+    }
+
 
     @Override
     public void onDestroy() {

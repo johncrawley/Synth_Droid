@@ -62,7 +62,10 @@ public class NoteItemManager {
             noteItem.onMotion(x,y, action!= MotionEvent.ACTION_UP);
         }
         transparentView.invalidate();
-
     }
 
+
+    public void releaseAll(){
+        noteItems.forEach(n -> n.onMotion(-100, -100, false));
+    }
 }

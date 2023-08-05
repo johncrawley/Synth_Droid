@@ -44,8 +44,7 @@ void errorCallback(AAudioStream *stream,
                    void *userData,
                    aaudio_result_t error){
     if (error == AAUDIO_ERROR_DISCONNECTED){
-        std::function<void(void)> restartFunction = std::bind(&AudioEngine::restart,
-                                                              static_cast<AudioEngine *>(userData));
+        std::function<void(void)> restartFunction = [ObjectPtr = static_cast<AudioEngine *>(userData)] { ObjectPtr->restart(); };
         new std::thread(restartFunction);
     }
 }

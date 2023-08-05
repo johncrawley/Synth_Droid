@@ -25,6 +25,7 @@ private:
     int tremoloIncreaseCounter_ = 0;
     int tremoloIncreaseRate_ = 2000;
     bool isEnabled_ = false;
+    float defaultAmplitude_ = 0.5f;
     float currentAmplitude = 0.5f;
     bool isAmplitudeDecreasing_ = true;
     float amplitudeStep_ = 0.005;

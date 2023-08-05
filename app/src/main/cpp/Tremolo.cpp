@@ -8,6 +8,9 @@
 
 void Tremolo::setEnabled(bool isEnabled) {
     isEnabled_ = isEnabled;
+    if(!isEnabled_){
+        currentAmplitude = defaultAmplitude_;
+    }
 }
 
 

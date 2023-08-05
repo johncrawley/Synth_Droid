@@ -28,6 +28,8 @@
 #include <atomic>
 #include <stdint.h>
 #include "Tremolo.h"
+#include <cmath>
+#define TWO_PI (3.14159 * 2)
 
 class Oscillator {
 public:
@@ -69,6 +71,7 @@ private:
     bool isAmplitudeChangeDue_ = false;
     float adjustedAmplitude_ = 0.0;
     Tremolo tremolo;
+    float chorusComponent_ = 0;
 
 
     void adjustAmplitude(){
@@ -80,7 +83,54 @@ private:
     }
 
 
+    float calculateNextSampleValue(){
+        return (float) ((sin(phase_) * amplitude)) + chorusComponent_;
+    }
 
+
+    void resetPhaseIfWaveIsOff(){
+        // If the wave has been switched off then reset the phase to zero. Starting at a non-zero value
+        // could result in an unwanted audible 'click'
+        if (!isWaveOn_.load()){
+            phase_ = 0;
+            chorusPhase_ = 0;
+        }
+    }
+
+
+    void updatePhase(){
+        phase_ += phaseIncrement_;
+        if (phase_ > TWO_PI){
+            phase_ -= TWO_PI;
+        }
+    }
+
+
+
+    void updateAmplitude(){
+        tremolo.update();
+        float adjustedAmplitude = tremolo.getAmplitude();
+        if(amplitude != adjustedAmplitude){
+            amplitude = adjustedAmplitude;
+            //__android_log_print(ANDROID_LOG_INFO, "^^^ ", "Current Amplitude: %f", amplitude);
+        }
+        amplitude = tremolo.getAmplitude();
+    }
+
+
+    void updateChorusComponent(){
+        if(isChorusEnabled_ ){
+            chorusComponent_ = (float) ((sin(chorusPhase_) * amplitude));
+            chorusPhase_ += chorusPhaseIncrement_;
+            if(chorusPhase_ > TWO_PI){
+                chorusPhase_ = -TWO_PI;
+            }
+        }
+    }
+
+    float outputSilence(){
+        return 0;
+    }
 };
 
 

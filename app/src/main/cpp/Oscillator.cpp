@@ -27,8 +27,6 @@
 #include <android/log.h>
 
 #define TWO_PI (3.14159 * 2)
-#define DEFAULT_AMPLITUDE 0.3
-#define FREQUENCY 240.0
 
 void Oscillator::setSampleRate(int32_t sampleRate) {
     phaseIncrement_ = (TWO_PI * frequency) / (double) sampleRate;
@@ -37,7 +35,12 @@ void Oscillator::setSampleRate(int32_t sampleRate) {
 
 
 void Oscillator::setWaveOn(bool isWaveOn) {
+    if(!isWaveOn){
+        tremolo.decayAndStop();
+        return;
+    }
     isWaveOn_.store(isWaveOn);
+    tremolo.cancelDecay();
 }
 
 

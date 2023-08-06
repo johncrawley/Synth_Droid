@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
     private void onUp(){
         tremoloRunner.stopTremolo();
         chorusRunner.stopChorus();
-        decayHelper.decayNoteAndStop();
+        //decayHelper.decayNoteAndStop();
+        setToneOn(false);
     }
 
 

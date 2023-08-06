@@ -17,19 +17,30 @@ public:
 
     float getAmplitude();
 
+    void decayAndStop();
+
+    void cancelDecay();
+
+    bool isDecayComplete();
+
+    void resetAmplitude();
+
 
 
 private:
-    int tremoloDecreaseRate_ = 200;
+    int decayRate_ = 50;
+    int decayCounter_ = 0;
+    int tremoloDecreaseRate_ = 100;
     int tremoloDecreaseCounter_ = 0;
     int tremoloIncreaseCounter_ = 0;
     int tremoloIncreaseRate_ = 2000;
     bool isEnabled_ = false;
     float defaultAmplitude_ = 0.5f;
-    float currentAmplitude = 0.5f;
+    float currentAmplitude_ = 0.5f;
     bool isAmplitudeDecreasing_ = true;
-    float amplitudeStep_ = 0.005;
+    float amplitudeStep_ = 0.002;
     float maxAmplitude_ = 0.5;
+    bool isDecaying_ = false;
 
 
     void adjustCurrentAmplitude(){
@@ -45,8 +56,8 @@ private:
         tremoloDecreaseCounter_++;
         if (tremoloDecreaseCounter_ >= tremoloDecreaseRate_) {
             tremoloDecreaseCounter_ = 0;
-            currentAmplitude -= amplitudeStep_;
-            if(currentAmplitude <= 0.005f) {
+            currentAmplitude_ -= amplitudeStep_;
+            if(currentAmplitude_ <= 0.005f) {
                 switchTremoloDirection();
             }
         }
@@ -56,12 +67,21 @@ private:
     void increaseAmplitude(){
         tremoloIncreaseCounter_++;
         if(tremoloIncreaseCounter_ >= tremoloIncreaseRate_){
-            currentAmplitude += amplitudeStep_;
+            currentAmplitude_ += amplitudeStep_;
             tremoloIncreaseCounter_ = 0;
         }
-        if(currentAmplitude >= maxAmplitude_){
-            currentAmplitude = maxAmplitude_;
+        if(currentAmplitude_ >= maxAmplitude_){
+            currentAmplitude_ = maxAmplitude_;
             switchTremoloDirection();
+        }
+    }
+
+
+    void decay(){
+        decayCounter_++;
+        if(decayCounter_ >= decayRate_){
+            currentAmplitude_ -= amplitudeStep_;
+            decayCounter_ = 0;
         }
     }
 

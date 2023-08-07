@@ -4,4 +4,5 @@
     <string name="enable_tremolo_switch_label">Tremolo</string>
     <string name="enable_chorus_switch_label">Chorus</string>
     <string name="tremolo_rate_seekbar_label">Tremolo Rate</string>
+    <string name="fragment_arpeggiator_interval_1_spinner_label">Interval 1</string>
 </resources>

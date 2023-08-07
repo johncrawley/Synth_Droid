@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="arpeggiator_interval_values">
+        <item>Minor 2nd</item>
+        <item>Major 2nd</item>
+        <item>Minor 3rd</item>
+        <item>Major 3rd</item>
+        <item>Perfect 4th</item>
+        <item>Diminished 5th</item>
+        <item>Perfect 5th</item>
+        <item>Minor 6th</item>
+        <item>Major 6th</item>
+        <item>Minor 7th</item>
+        <item>Major 7th</item>
+        <item>Octave</item>
+    </string-array>
+
+
+</resources>

@@ -10,20 +10,16 @@ import android.view.ViewTreeObserver;
 import android.widget.SeekBar;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.jcrawley.synthdroid.fx.DecayHelper;
 import com.jcrawley.synthdroid.fx.chorus.ChorusRunner;
-import com.jcrawley.synthdroid.fx.tremolo.TremoloRunner;
 import com.jcrawley.synthdroid.view.NoteItemManager;
 import com.jcrawley.synthdroid.view.TransparentView;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private TremoloRunner tremoloRunner;
     private MainViewModel viewModel;
     private final FrequencyHelper frequencyHelper = new FrequencyHelper();
     private ChorusRunner chorusRunner;
-    private DecayHelper decayHelper;
     private final int chorusRate = 100;
     private TransparentView inputView;
     private NoteItemManager noteItemManager;
@@ -62,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         setupViewModel();
         startEngine();
         setupViews();
-        decayHelper = new DecayHelper(this);
-        tremoloRunner = new TremoloRunner(this);
         chorusRunner = new ChorusRunner(this);
     }
 
@@ -80,11 +74,6 @@ public class MainActivity extends AppCompatActivity {
         if(viewModel.tremoloRate < 0){
             viewModel.tremoloRate = getResources().getInteger(R.integer.tremolo_rate_seekbar_default);
         }
-    }
-
-
-    public TremoloRunner getTremoloRunner(){
-        return tremoloRunner;
     }
 
 
@@ -135,23 +124,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void onDown(MotionEvent motionEvent){
-        tremoloRunner.startTremolo(viewModel.tremoloRate);
         chorusRunner.startChorus(chorusRate);
        // assignFrequencyFromMotionEvent(motionEvent);
-        decayHelper.onNewNotePressed();
         setToneOn(true);
     }
 
 
     private void onMove(MotionEvent motionEvent){
-        tremoloRunner.startTremolo(viewModel.tremoloRate);
         chorusRunner.startChorus(chorusRate);
        // assignFrequencyFromMotionEvent(motionEvent);
     }
 
 
     private void onUp(){
-        tremoloRunner.stopTremolo();
         chorusRunner.stopChorus();
         //decayHelper.decayNoteAndStop();
         setToneOn(false);
@@ -228,8 +213,6 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                viewModel.tremoloRate = i;
-                tremoloRunner.setRateCounter(i);
                 setTremoloRate(calculateTremoloRate(i));
             }
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}

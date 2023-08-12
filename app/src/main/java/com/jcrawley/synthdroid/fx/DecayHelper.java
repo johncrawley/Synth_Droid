@@ -29,7 +29,7 @@ public class DecayHelper {
 
 
     public void decayNoteAndStop(){
-        currentAmplitude = mainActivity.getTremoloRunner().getCurrentAmplitude();
+        currentAmplitude = 0;
         future = executorService.scheduleAtFixedRate(this::reduceVolume, 0, 2, TimeUnit.MILLISECONDS);
 
     }

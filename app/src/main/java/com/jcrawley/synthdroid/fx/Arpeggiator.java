@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Arpeggiator {
 
-    private int rate = 300;
+    private int rate = 100;
     private boolean isEnabled = true;
     private ScheduledFuture<?> future;
     private final ScheduledExecutorService executorService;
@@ -39,6 +39,9 @@ public class Arpeggiator {
 
 
     public void stop(){
+        if(future == null || future.isCancelled()){
+            return;
+        }
         future.cancel(false);
     }
 
@@ -50,18 +53,19 @@ public class Arpeggiator {
         }
         currentNoteIndex = 0;
         calculateIntervals(note);
-        future = executorService.scheduleAtFixedRate(this::changeNote,0 , rate, TimeUnit.MILLISECONDS);
+        future = executorService.scheduleAtFixedRate(this::changeNote, rate , rate, TimeUnit.MILLISECONDS);
     }
 
 
     private void calculateIntervals(MusicNote note){
+        notes.clear();
         notes.add(note);
         notes.add(noteCalculator.addIntervalUp(note, Interval.MAJOR_THIRD));
         notes.add(noteCalculator.addIntervalUp(note, Interval.PERFECT_FIFTH));
     }
 
 
-    public void changeNote(){
+    private void changeNote(){
         incrementCurrentNoteIndex();
         setNoteFrequency(notes.get(currentNoteIndex));
     }

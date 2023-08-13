@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.SeekBar;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.jcrawley.synthdroid.fx.Arpeggiator;
 import com.jcrawley.synthdroid.fx.chorus.ChorusRunner;
 import com.jcrawley.synthdroid.view.NoteItemManager;
 import com.jcrawley.synthdroid.view.TransparentView;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private final int chorusRate = 100;
     private TransparentView inputView;
     private NoteItemManager noteItemManager;
+    private Arpeggiator arpeggiator;
 
 
 
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         startEngine();
         setupViews();
         chorusRunner = new ChorusRunner(this);
+        arpeggiator = new Arpeggiator(this);
     }
 
 
@@ -66,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+    }
+
+
+    public void playNote(MusicNote musicNote){
+        arpeggiator.stop();
+        arpeggiator.start(musicNote);
     }
 
 

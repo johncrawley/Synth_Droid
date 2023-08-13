@@ -31,7 +31,8 @@ public class NoteItemManager {
         if(frequency == previousFreq){
             return;
         }
-        activity.setFrequency(frequency);
+       // activity.setFrequency(frequency);
+        activity.playNote(musicNote);
         previousFreq = frequency;
     }
 

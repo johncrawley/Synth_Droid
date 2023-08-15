@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class Arpeggiator {
 
     private int rate = 100;
-    private boolean isEnabled = true;
+    private boolean isEnabled = false;
     private ScheduledFuture<?> future;
     private final ScheduledExecutorService executorService;
     private final List<MusicNote> notes;
@@ -38,11 +38,15 @@ public class Arpeggiator {
     }
 
 
+    public void setRate(int rate){
+        this.rate = rate;
+    }
+
+
     public void stop(){
-        if(future == null || future.isCancelled()){
-            return;
+        if(future != null && !future.isCancelled()){
+            future.cancel(false);
         }
-        future.cancel(false);
     }
 
 

@@ -13,5 +13,12 @@
         <item name="android:statusBarColor">@color/status_bar</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/background</item>
+        <item name="materialButtonStyle">@style/customMaterialButtonStyle</item>
     </style>
+
+    <style name="customMaterialButtonStyle" parent="Widget.Material3.Button">
+        <item name="backgroundColor">@color/teal_200</item>
+    </style>
+
+
 </resources>

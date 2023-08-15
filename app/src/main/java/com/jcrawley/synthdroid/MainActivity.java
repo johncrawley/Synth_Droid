@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.SeekBar;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -194,7 +196,17 @@ public class MainActivity extends AppCompatActivity {
     private void setupViews(){
         setupTremoloSettings();
         setupChorusSettings();
+        setupButtons();
         setupInputView();
+    }
+
+    private void setupButtons(){
+        Button arpeggiatorButton = findViewById(R.id.enable_arpeggiator_button);
+        arpeggiatorButton.setOnClickListener((View v)-> {
+            boolean isActivated = arpeggiatorButton.isActivated();
+            System.out.println("^^^ isActivated: " + isActivated);
+            arpeggiatorButton.setActivated(!isActivated);
+            arpeggiator.setEnabled(!isActivated);});
     }
 
 

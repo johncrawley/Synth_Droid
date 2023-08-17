@@ -18,5 +18,6 @@
     <color name="button_pressed">#9E9898</color>
     <color name="button_selected">#9E9898</color>
     <color name="button_focused">#9E9898</color>
-    <color name="button_activated">#9E9898</color>
+    <color name="button_activated">#FDD835</color>
+    <color name="button_deactivated">#6E6747</color>
 </resources>

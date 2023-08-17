@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void playNote(MusicNote musicNote){
-        arpeggiator.stop();
         arpeggiator.start(musicNote);
     }
 
@@ -150,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
     private void onUp(){
         chorusRunner.stopChorus();
         //decayHelper.decayNoteAndStop();
+        arpeggiator.stop();
         setToneOn(false);
     }
 
@@ -170,11 +170,13 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("^^^ MainActivity: " + msg);
     }
 
+
     @Override
     public void onPause(){
         super.onPause();
         onUp();
         noteItemManager.releaseAll();
+        arpeggiator.stop();
         stopEngine();
     }
 
@@ -189,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
        stopEngine();
+       arpeggiator.stop();
         super.onDestroy();
     }
 
@@ -199,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
         setupButtons();
         setupInputView();
     }
+
 
     private void setupButtons(){
         Button arpeggiatorButton = findViewById(R.id.enable_arpeggiator_button);
@@ -241,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
         });
         setTremoloRate(calculateTremoloRate(seekBar.getProgress()));
     }
+
 
     private int calculateTremoloRate(int seekBarValue){
         int maxRate = getResources().getInteger(R.integer.tremolo_rate_seekbar_max);

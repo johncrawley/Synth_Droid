@@ -17,7 +17,7 @@
     </style>
 
     <style name="customMaterialButtonStyle" parent="Widget.Material3.Button">
-        <item name="backgroundTint">@color/button_unselected</item>
+        <item name="backgroundTint">@drawable/selector_button_background</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/black</item>
     </style>

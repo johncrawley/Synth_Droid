@@ -53,10 +53,11 @@ public class NoteItemManager {
 
     private MusicNote[] getSelectionOfNotes(){
         MusicNote[] musicNotes = MusicNote.values();
-        MusicNote[] musicNotes2 = Arrays.copyOfRange(musicNotes, 48, 72);
-        Collections.reverse(Arrays.asList(musicNotes2));
-        return musicNotes2;
+        MusicNote[] displayedNotes = Arrays.copyOfRange(musicNotes, 48, 72);
+        Collections.reverse(Arrays.asList(displayedNotes));
+        return displayedNotes;
     }
+
 
     public void motion(int x, int y, int action){
         for(NoteItem noteItem : noteItems){

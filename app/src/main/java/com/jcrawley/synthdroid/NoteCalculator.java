@@ -3,7 +3,7 @@ package com.jcrawley.synthdroid;
 
 public class NoteCalculator {
 
-    private MusicNote[] musicNotes = MusicNote.values();
+    private final MusicNote[] musicNotes = MusicNote.values();
 
     public MusicNote addIntervalUp(MusicNote baseNote, Interval interval){
         int intervalNumber = interval.ordinal() + 1;

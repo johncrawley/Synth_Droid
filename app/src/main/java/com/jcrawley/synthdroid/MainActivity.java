@@ -208,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
         Button arpeggiatorButton = findViewById(R.id.enable_arpeggiator_button);
         arpeggiatorButton.setOnClickListener((View v)-> {
             boolean isActivated = arpeggiatorButton.isActivated();
-            System.out.println("^^^ isActivated: " + isActivated);
             arpeggiatorButton.setActivated(!isActivated);
             arpeggiator.setEnabled(!isActivated);});
     }

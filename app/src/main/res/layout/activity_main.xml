@@ -46,6 +46,22 @@
                 android:layout_margin="@dimen/button_margin"
                 android:text="@string/enable_arpeggiator_button_label"
                 />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/enable_tremolo_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:text="@string/enable_tremolo_button_label"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/enable_chorus_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_margin"
+                android:text="@string/enable_chorus_button_label"
+                />
         </LinearLayout>
 
         <com.google.android.material.switchmaterial.SwitchMaterial

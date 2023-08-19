@@ -9,10 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="status_bar">#591D1D</color>
     <color name="background">#322C2C</color>
-    <color name="control_background">#5E5D5D</color>
+    <color name="control_background">#4E4E4E</color>
     <color name="night_primary_color">#7C2D2D</color>
     <color name="night_button_text_color">#9E9898</color>
 
+    <color name="night_button_text_normal">#BABABA</color>
+    <color name="night_button_text_activated">#FDD835</color>
 
 
     <color name="button_unselected">#9E9898</color>

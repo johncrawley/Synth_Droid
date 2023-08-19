@@ -11,11 +11,12 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.SeekBar;
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.jcrawley.synthdroid.fx.Arpeggiator;
 import com.jcrawley.synthdroid.fx.chorus.ChorusRunner;
 import com.jcrawley.synthdroid.view.NoteItemManager;
 import com.jcrawley.synthdroid.view.TransparentView;
+
+import java.util.function.Consumer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -198,36 +199,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViews(){
         setupTremoloSettings();
-        setupChorusSettings();
         setupButtons();
         setupInputView();
     }
 
 
     private void setupButtons(){
-        Button arpeggiatorButton = findViewById(R.id.enable_arpeggiator_button);
-        arpeggiatorButton.setOnClickListener((View v)-> {
-            boolean isActivated = arpeggiatorButton.isActivated();
-            arpeggiatorButton.setActivated(!isActivated);
-            arpeggiator.setEnabled(!isActivated);});
+        setupSwitchButton(R.id.enable_arpeggiator_button, activated ->arpeggiator.setEnabled(activated));
+        setupSwitchButton(R.id.enable_tremolo_button, this::enableTremolo);
+        setupSwitchButton(R.id.enable_chorus_button, activated -> {
+            chorusRunner.setEnabled(activated);
+            enableChorus(activated);});
     }
 
 
-    private void setupChorusSettings(){
-        SwitchMaterial enableChorusSwitch = findViewById(R.id.enableChorusSwitch);
-        enableChorusSwitch.setOnCheckedChangeListener((view, isChecked) ->{
-            chorusRunner.setEnabled(isChecked);
-            enableChorus(isChecked);
+    private void setupSwitchButton(int buttonId, Consumer<Boolean> consumer){
+        Button button = findViewById(buttonId);
+        button.setOnClickListener((View v)-> {
+            boolean isActivated = button.isActivated();
+            button.setActivated(!isActivated);
+            consumer.accept(!isActivated);
         });
     }
 
 
     private void setupTremoloSettings(){
-        SwitchMaterial enableTremoloSwitch = findViewById(R.id.enableTremoloSwitch);
-        enableTremoloSwitch.setOnCheckedChangeListener((view, isChecked) ->{
-           // tremoloRunner.setEnabled(isChecked);
-            enableTremolo(isChecked);
-        });
         setupTremoloRateSeekBar();
     }
 

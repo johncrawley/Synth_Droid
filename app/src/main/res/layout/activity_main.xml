@@ -34,51 +34,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputView"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/enable_arpeggiator_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@color/custom_button_text_color"
                 android:text="@string/enable_arpeggiator_button_label"
                 />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/enable_tremolo_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
                 android:text="@string/enable_tremolo_button_label"
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@color/custom_button_text_color"
                 />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/enable_chorus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_margin"
                 android:text="@string/enable_chorus_button_label"
-                />
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@color/custom_button_text_color" />
         </LinearLayout>
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/enableChorusSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:gravity="center_vertical"
-            android:text="@string/enable_chorus_switch_label"/>
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/enableTremoloSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:gravity="center_vertical"
-            android:text="@string/enable_tremolo_switch_label"/>
 
         <LinearLayout
             android:id="@+id/tremoloRateSeekBarLayout"

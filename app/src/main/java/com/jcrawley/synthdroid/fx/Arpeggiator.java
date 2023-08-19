@@ -4,8 +4,6 @@ import com.jcrawley.synthdroid.Interval;
 import com.jcrawley.synthdroid.MainActivity;
 import com.jcrawley.synthdroid.MusicNote;
 import com.jcrawley.synthdroid.NoteCalculator;
-import com.jcrawley.synthdroid.view.NoteItem;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -44,7 +42,6 @@ public class Arpeggiator {
 
 
     public void stop(){
-        log("Entered stop()");
         if(future != null && !future.isCancelled()){
             future.cancel(false);
         }
@@ -73,26 +70,9 @@ public class Arpeggiator {
     }
 
 
-    private int printCounter = 0;
-
     private void changeNote(){
-        logOnInterval("Entered changeNote()");
         incrementCurrentNoteIndex();
         setNoteFrequency(notes.get(currentNoteIndex));
-    }
-
-
-    private void logOnInterval(String msg){
-        final int printRate = 5;
-        printCounter++;
-        if(printCounter >= printRate){
-            printCounter = 0;
-            log(msg);
-        }
-    }
-
-    private void log(String msg){
-        System.out.println("^^^ Arpeggiator: " + msg);
     }
 
 

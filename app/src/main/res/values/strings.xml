@@ -3,7 +3,7 @@
     <string name="main_message">Play your tunes!</string>
     <string name="enable_tremolo_switch_label">Tremolo</string>
     <string name="enable_arpeggiator_button_label">Arp</string>
-    <string name="enable_tremolo_button_label">Tremolo</string>
+    <string name="enable_tremolo_button_label">Trem</string>
     <string name="enable_chorus_button_label">Chorus</string>
     <string name="enable_chorus_switch_label">Chorus</string>
     <string name="tremolo_rate_seekbar_label">Tremolo Rate</string>

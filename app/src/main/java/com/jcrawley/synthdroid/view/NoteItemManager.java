@@ -60,14 +60,26 @@ public class NoteItemManager {
 
 
     public void motion(int x, int y, int action){
+        if (hasMovedOutOfBounds(y, action)) {
+            return;
+
+        }
+
         for(NoteItem noteItem : noteItems){
             noteItem.onMotion(x,y, action!= MotionEvent.ACTION_UP);
         }
+
         transparentView.invalidate();
     }
 
 
     public void releaseAll(){
         noteItems.forEach(n -> n.onMotion(-100, -100, false));
+    }
+
+
+    private boolean hasMovedOutOfBounds(int y, int action){
+        return action == MotionEvent.ACTION_MOVE
+                && (y < transparentView.getY() || y > transparentView.getY() + transparentView.getMeasuredHeight());
     }
 }

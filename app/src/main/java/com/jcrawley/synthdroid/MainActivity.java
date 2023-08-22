@@ -69,9 +69,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    public void onPause(){
+        super.onPause();
+        log("entered onPause()");
+        onUp();
+        noteItemManager.releaseAll();
+        arpeggiator.stop();
+        stopEngine();
+    }
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        log("Entered onResume()");
+        startEngine();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        log("Entered onDestroy()");
+        stopEngine();
+        arpeggiator.stop();
+        super.onDestroy();
     }
 
 
@@ -169,31 +190,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void log(String msg){
         System.out.println("^^^ MainActivity: " + msg);
-    }
-
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        onUp();
-        noteItemManager.releaseAll();
-        arpeggiator.stop();
-        stopEngine();
-    }
-
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        startEngine();
-    }
-
-
-    @Override
-    public void onDestroy() {
-       stopEngine();
-       arpeggiator.stop();
-        super.onDestroy();
     }
 
 

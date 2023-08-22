@@ -125,7 +125,7 @@ bool AudioEngine::start() {
 
 
 void AudioEngine::stop() {
-    if (stream_ != nullptr) {
+    if (stream_ != nullptr && isStarted_) {
         AAudioStream_requestStop(stream_);
         AAudioStream_close(stream_);
     }

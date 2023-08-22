@@ -19,7 +19,7 @@ void Tremolo::setRate(int rate){
 }
 
 
-float Tremolo::getAmplitude(){
+float Tremolo::getAmplitude() const{
     return currentAmplitude_;
 }
 

@@ -15,7 +15,7 @@ public:
 
     void update();
 
-    float getAmplitude();
+    float getAmplitude() const;
 
     void decayAndStop();
 

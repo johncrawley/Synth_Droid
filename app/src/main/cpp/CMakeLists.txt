@@ -24,6 +24,7 @@ add_library( # Sets the name of the library.
              # Provides a relative path to your source file(s).
              Oscillator.cpp
              Tremolo.cpp
+             Chorus.cpp
              AudioEngine.cpp
              JniBridge.cpp)
 

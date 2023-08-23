@@ -28,6 +28,7 @@
 #include <atomic>
 #include <stdint.h>
 #include "Tremolo.h"
+#include "Chorus.h"
 #include <cmath>
 #define TWO_PI (3.14159 * 2)
 
@@ -71,6 +72,7 @@ private:
     bool isAmplitudeChangeDue_ = false;
     float adjustedAmplitude_ = 0.0;
     Tremolo tremolo;
+    Chorus chorus;
     float chorusComponent_ = 0;
 
 

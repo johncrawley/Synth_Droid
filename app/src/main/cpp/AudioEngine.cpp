@@ -56,7 +56,7 @@ void AudioEngine::setFrequency(float freq){
 
 
 void AudioEngine::setChorusFrequency(float freq){
-    oscillator_.setChorusFrequency(freq);
+    oscillator_.setChorusDepth(freq);
 }
 
 

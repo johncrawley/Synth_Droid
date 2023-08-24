@@ -31,6 +31,7 @@
 void Oscillator::setSampleRate(int32_t sampleRate) {
     phaseIncrement_ = (TWO_PI * frequency) / (double) sampleRate;
     savedSampleRate = sampleRate;
+    chorus.setSampleRate(sampleRate);
 }
 
 
@@ -66,9 +67,8 @@ void  Oscillator::setFrequency(float freq){
 }
 
 
-void  Oscillator::setChorusFrequency(float freq){
-    chorusFrequency_ = frequency + freq;
-    chorusPhaseIncrement_ = (TWO_PI * chorusFrequency_) / (double) savedSampleRate;
+void  Oscillator::setChorusDepth(float chorusDepth){
+    chorus.setDepth(frequency, chorusDepth);
 }
 
 

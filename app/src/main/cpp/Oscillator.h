@@ -42,7 +42,7 @@ public:
 
     void setFrequency(float freq);
 
-    void setChorusFrequency(float freq);
+    void setChorusDepth(float freq);
 
     void setTremoloRate(int value);
 

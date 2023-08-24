@@ -16,7 +16,11 @@ public:
 
     void setRate(int rate);
 
+    void setDepth(float baseFrequency, float chorusDepth);
 
+    void setSampleRate(int32_t sampleRate);
+
+    float getChorusComponent();
 
 
 private:
@@ -24,7 +28,9 @@ private:
     bool isEnabled_;
     float chorusComponent_;
     float chorusPhase_;
-    float phaseIncrement_;
+    double phaseIncrement_;
+    float currentFrequency_ = 2;
+    int32_t sampleRate_;
 
 
     void updateChorusComponent(float amplitude){
